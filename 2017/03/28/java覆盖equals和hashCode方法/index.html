@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>java覆盖equals和hashCode方法 | 杏仁的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在覆盖equals方法的时候，必须要遵守它的通用约定：自反性：对于任何非null的引用值x，x.equals(x)必须返回true。对称性：对于任何非null的引用值x和y，当且仅当y.equals(x)返回true时，x.equals(y)必须返回true。传递性：对于任何非null的引用值x、y和z，如果x.equals(y)返回true，并且y.equals(z)返回true，那么x.equ">
+<meta name="keywords" content="java,equals,hashCode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java覆盖equals和hashCode方法">
+<meta property="og:url" content="http://yoursite.com/2017/03/28/java覆盖equals和hashCode方法/index.html">
+<meta property="og:site_name" content="杏仁的博客">
+<meta property="og:description" content="在覆盖equals方法的时候，必须要遵守它的通用约定：自反性：对于任何非null的引用值x，x.equals(x)必须返回true。对称性：对于任何非null的引用值x和y，当且仅当y.equals(x)返回true时，x.equals(y)必须返回true。传递性：对于任何非null的引用值x、y和z，如果x.equals(y)返回true，并且y.equals(z)返回true，那么x.equ">
+<meta property="og:updated_time" content="2017-05-04T13:33:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java覆盖equals和hashCode方法">
+<meta name="twitter:description" content="在覆盖equals方法的时候，必须要遵守它的通用约定：自反性：对于任何非null的引用值x，x.equals(x)必须返回true。对称性：对于任何非null的引用值x和y，当且仅当y.equals(x)返回true时，x.equals(y)必须返回true。传递性：对于任何非null的引用值x、y和z，如果x.equals(y)返回true，并且y.equals(z)返回true，那么x.equ">
+  
+    <link rel="alternate" href="/atom.xml" title="杏仁的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">杏仁的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">我的学习笔记</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Zoeken"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-java覆盖equals和hashCode方法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/28/java覆盖equals和hashCode方法/" class="article-date">
+  <time datetime="2017-03-28T14:26:17.000Z" itemprop="datePublished">2017-03-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      java覆盖equals和hashCode方法
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在覆盖equals方法的时候，必须要遵守它的通用约定：<br><strong>自反性：</strong>对于任何非null的引用值x，x.equals(x)必须返回true。<br><strong>对称性：</strong>对于任何非null的引用值x和y，当且仅当y.equals(x)返回true时，x.equals(y)必须返回true。<br><strong>传递性：</strong>对于任何非null的引用值x、y和z，如果x.equals(y)返回true，并且y.equals(z)返回true，那么x.equals(z)也必须返回true。<br><strong>一致性：</strong>对于任何非null的引用值x和y，只要equals的比较操作在对象中所用的信息没有被修改，多次调用x.equals(y)就会一致地返回true，或者一致地返回false。<br><strong>非空性：</strong>对于任何非null的引用值x，x.equals(null)必须返回false。</p>
+<p><strong>对称性：</strong><br>在这个示例中，equals方法的意图非常好，它企图与普通的字符串对象进行互操作。但是String类中的equals方法却并不知道不区分大小写的字符串类的存在，显然违反了对称性。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">CaseInsensitiveString</span> </span>&#123;</div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> String s;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">CaseInsensitiveString</span><span class="params">(String s)</span></span></div><div class="line">&#123;</div><div class="line"><span class="keyword">if</span>(s == <span class="keyword">null</span>)</div><div class="line">&#123;</div><div class="line"><span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</div><div class="line">&#125;</div><div class="line"><span class="keyword">this</span>.s = s;</div><div class="line">&#125;</div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span></span></div><div class="line">&#123;</div><div class="line"><span class="keyword">if</span>(o <span class="keyword">instanceof</span> CaseInsensitiveString)</div><div class="line">&#123;</div><div class="line"><span class="keyword">return</span> s.equalsIgnoreCase(((CaseInsensitiveString)o).s);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">if</span>(o <span class="keyword">instanceof</span> String)</div><div class="line">&#123;</div><div class="line"><span class="keyword">return</span> s.equalsIgnoreCase((String)o);</div><div class="line">&#125;</div><div class="line"><span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>假设我们有一个不区分大小写的字符串和一个普通的字符串，很容易就看出两句输出的结果。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">CaseInsensitiveString cis = <span class="keyword">new</span> CaseInsensitiveString(<span class="string">"Hello"</span>);</div><div class="line">String s = <span class="string">"Hello"</span>;</div><div class="line">System.out.println(cis.equals(s));</div><div class="line">System.out.println(s.equals(cis));</div></pre></td></tr></table></figure></p>
+<p><strong>传递性：</strong><br><em>我们无法在扩展可实例化的类的同时，既增加新的值组件，同时又保留equals约定，除非愿意放弃面向对象的抽象所带来的优势。</em>虽然没有一种令人满意的办法可以既扩展可实例化的类，又增加值组件，但还有一种不错的权益之计：复合优先于继承。<br><strong>注：</strong>可以在一个抽象类的子类中增加新的值组件，而不会违反equals约定。只要不可能直接创建超类的实例，前面所述的问题都不会发生。</p>
+<p>为了获得最佳的性能，应该最优先比较最有可能不一致的域，或者是开销最低的域。</p>
+<p><strong>覆盖equals时总要覆盖hashCode</strong><br>下面约定的内容，摘自Object规范：</p>
+<blockquote>
+<p>如果两个对象根据equals方法比较是相等的，那么调用这两个对象中任意一个对象的hashCode方法&gt;都必须产生同样的整数结果。<br>如果两个对象根据equals方法比较是不相等的，那么调用这两个对象中任意一个对象的hashCode方&gt;法，则不一定要产生不同的整数结果。但是应该知道，给不相等的对象产生截然不同的整数结果，&gt;有可能提高散列表的性能。</p>
+</blockquote>
+<p>一个好的散列函数通常倾向于“为不相等的对象产生不相等的散列码”</p>
+<ol>
+<li>把某个非零的常数值，比如说17，保存在一个名为result的int类型的变量中。</li>
+<li>对于对象中每个关键域f，完成以下步骤：</li>
+<li>为该域计算int类型的散列码c:</li>
+<li>如果该域是boolean类型，则计算(f?1:0)。</li>
+<li>如果该域是byte、char、short或者int类型，则计算(int)f。</li>
+<li>如果该域是long类型，则计算(int)(f^(f&gt;&gt;&gt;32))。</li>
+<li>如果该域是float类型，则计算Float.floatToIntBits(f)。</li>
+<li>如果该域是double类型，则计算Double.doubleToLongBits(f)，然后按照步骤2.1.3，为得到的long类型值计算散列值。</li>
+<li>如果该域是一个对象引用，并且该类的equals方法通过递归地调用equals的方式来比较这个域，则同样为这个域递归地调用hashCode。如果需要更复杂的比较，则为这个域计算一个“范式”，然后针对这个范式调用hashCode。如果这个域的值为null，则返回0.</li>
+<li>如果该域是一个数组，则要把每个元素当做单独的域来处理。也就是说，递归地引用上述规则，对每个重要的元素计算一个散列码，然后根据2.2中的做法，把这些散列值组合起来。如果数组域中的每个元素都很重要，可以利用发行版本1.5中增加的其中一个Arrays.hashCode方法。</li>
+<li>按照下面的公式，把步骤2.1中计算得到的散列码c合并到result中：<br>result = 31*result+c;</li>
+<li>返回result。</li>
+</ol>
+<p>参考书籍<br>《Effective Java中文版 第2版》</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/28/java覆盖equals和hashCode方法/" data-id="cj2aggjqm001qao99i98ggopd" class="article-share-link">Delen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/equals/">equals</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hashCode/">hashCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/03/31/Java集合学习/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Nieuwer</strong>
+      <div class="article-nav-title">
+        
+          Java集合学习
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/03/27/java构造器/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ouder</strong>
+      <div class="article-nav-title">java构造器</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categorieën</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Javascript/">Javascript</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Labels</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Builder/">Builder</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaBean/">JavaBean</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/double/">double</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/equals/">equals</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hashCode/">hashCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/intern/">intern</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jvm/">jvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/map/">map</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/set/">set</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/synchronized/">synchronized</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/textarea/">textarea</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/this逸出/">this逸出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/volatile/">volatile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/事件/">事件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/列表/">列表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态/">动态</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/发布/">发布</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/变量/">变量</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/垃圾收集器/">垃圾收集器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/安全/">安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并发/">并发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拆箱/">拆箱</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/指针/">指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/换行符/">换行符</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/构造函数/">构造函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/构造器/">构造器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/正则表达式/">正则表达式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/死锁/">死锁</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/比较大小/">比较大小</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/永久代/">永久代</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/环/">环</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/类加载/">类加载</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线程池/">线程池</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/装箱/">装箱</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/转账/">转账</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/链表/">链表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/队列/">队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/集合/">集合</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Builder/" style="font-size: 10px;">Builder</a> <a href="/tags/JavaBean/" style="font-size: 10px;">JavaBean</a> <a href="/tags/double/" style="font-size: 10px;">double</a> <a href="/tags/equals/" style="font-size: 10px;">equals</a> <a href="/tags/hashCode/" style="font-size: 10px;">hashCode</a> <a href="/tags/intern/" style="font-size: 10px;">intern</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/javascript/" style="font-size: 16.67px;">javascript</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/map/" style="font-size: 10px;">map</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/set/" style="font-size: 10px;">set</a> <a href="/tags/synchronized/" style="font-size: 10px;">synchronized</a> <a href="/tags/textarea/" style="font-size: 10px;">textarea</a> <a href="/tags/this逸出/" style="font-size: 10px;">this逸出</a> <a href="/tags/volatile/" style="font-size: 10px;">volatile</a> <a href="/tags/事件/" style="font-size: 10px;">事件</a> <a href="/tags/列表/" style="font-size: 10px;">列表</a> <a href="/tags/动态/" style="font-size: 10px;">动态</a> <a href="/tags/发布/" style="font-size: 10px;">发布</a> <a href="/tags/变量/" style="font-size: 10px;">变量</a> <a href="/tags/垃圾收集器/" style="font-size: 13.33px;">垃圾收集器</a> <a href="/tags/安全/" style="font-size: 10px;">安全</a> <a href="/tags/并发/" style="font-size: 10px;">并发</a> <a href="/tags/拆箱/" style="font-size: 10px;">拆箱</a> <a href="/tags/指针/" style="font-size: 13.33px;">指针</a> <a href="/tags/换行符/" style="font-size: 10px;">换行符</a> <a href="/tags/构造函数/" style="font-size: 13.33px;">构造函数</a> <a href="/tags/构造器/" style="font-size: 10px;">构造器</a> <a href="/tags/正则表达式/" style="font-size: 10px;">正则表达式</a> <a href="/tags/死锁/" style="font-size: 10px;">死锁</a> <a href="/tags/比较大小/" style="font-size: 10px;">比较大小</a> <a href="/tags/永久代/" style="font-size: 10px;">永久代</a> <a href="/tags/环/" style="font-size: 13.33px;">环</a> <a href="/tags/类加载/" style="font-size: 10px;">类加载</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a> <a href="/tags/装箱/" style="font-size: 10px;">装箱</a> <a href="/tags/转账/" style="font-size: 10px;">转账</a> <a href="/tags/链表/" style="font-size: 13.33px;">链表</a> <a href="/tags/队列/" style="font-size: 10px;">队列</a> <a href="/tags/集合/" style="font-size: 10px;">集合</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archieven</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recente berichten</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/05/04/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/31/Java集合学习/">Java集合学习</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/28/java覆盖equals和hashCode方法/">java覆盖equals和hashCode方法</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/27/java构造器/">java构造器</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/26/java构造函数this逸出/">java构造函数this逸出</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 杏仁<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
