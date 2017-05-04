@@ -3,17 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2017/3 | 杏仁的博客</title>
+  <title>java 线程池学习 | 杏仁的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Java | Javascript | web | tools">
-<meta property="og:type" content="website">
-<meta property="og:title" content="杏仁的博客">
-<meta property="og:url" content="http://yoursite.com/archives/2017/03/index.html">
+  <meta name="description" content="线程的创建与销毁线程池的基本大小（core pool size）、最大大小（maximum pool size）以及存活时间（keepAliveTime）等因素共同负责线程的创建与销毁。基本大小也就是线程池的目标大小，即在没有任务执行时，线程池的大小，并且只有在工作队列满了的情况下，才会创建超出这个数量的线程。线程池的最大大小表示可同时活动的线程数量的上限。如果某个线程的空闲时间超过了存活时间，那">
+<meta name="keywords" content="java,线程池">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java 线程池学习">
+<meta property="og:url" content="http://yoursite.com/2017/03/24/java-线程池学习/index.html">
 <meta property="og:site_name" content="杏仁的博客">
-<meta property="og:description" content="Java | Javascript | web | tools">
+<meta property="og:description" content="线程的创建与销毁线程池的基本大小（core pool size）、最大大小（maximum pool size）以及存活时间（keepAliveTime）等因素共同负责线程的创建与销毁。基本大小也就是线程池的目标大小，即在没有任务执行时，线程池的大小，并且只有在工作队列满了的情况下，才会创建超出这个数量的线程。线程池的最大大小表示可同时活动的线程数量的上限。如果某个线程的空闲时间超过了存活时间，那">
+<meta property="og:updated_time" content="2017-05-04T13:20:30.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="杏仁的博客">
-<meta name="twitter:description" content="Java | Javascript | web | tools">
+<meta name="twitter:title" content="java 线程池学习">
+<meta name="twitter:description" content="线程的创建与销毁线程池的基本大小（core pool size）、最大大小（maximum pool size）以及存活时间（keepAliveTime）等因素共同负责线程的创建与销毁。基本大小也就是线程池的目标大小，即在没有任务执行时，线程池的大小，并且只有在工作队列满了的情况下，才会创建超出这个数量的线程。线程池的最大大小表示可同时活动的线程数量的上限。如果某个线程的空闲时间超过了存活时间，那">
   
     <link rel="alternate" href="/atom.xml" title="杏仁的博客" type="application/atom+xml">
   
@@ -66,96 +68,71 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/03/24/java-线程池学习/" class="archive-article-date">
-  <time datetime="2017-03-24T12:28:53.000Z" itemprop="datePublished">Mar 24</time>
+        <section id="main"><article id="post-java-线程池学习" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/24/java-线程池学习/" class="article-date">
+  <time datetime="2017-03-24T12:28:53.000Z" itemprop="datePublished">2017-03-24</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/24/java-线程池学习/">java 线程池学习</a>
+    <h1 class="article-title" itemprop="name">
+      java 线程池学习
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/03/19/链表中环的入口节点/" class="archive-article-date">
-  <time datetime="2017-03-19T13:06:01.000Z" itemprop="datePublished">Mar 19</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/19/链表中环的入口节点/">链表中环的入口节点</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/03/12/如何给动态元素添加事件/" class="archive-article-date">
-  <time datetime="2017-03-12T14:02:38.000Z" itemprop="datePublished">Mar 12</time>
-</a>
+        <p><strong>线程的创建与销毁</strong><br>线程池的基本大小（core pool size）、最大大小（maximum pool size）以及存活时间（keepAliveTime）等因素共同负责线程的创建与销毁。<br>基本大小也就是线程池的目标大小，即在没有任务执行时，线程池的大小，并且只有在工作队列满了的情况下，才会创建超出这个数量的线程。<br>线程池的最大大小表示可同时活动的线程数量的上限。<br>如果某个线程的空闲时间超过了存活时间，那么将被标记为可回收的，并且当线程池的当前大小超过了基本大小时，这个线程将被终止。</p>
+<p><strong>管理队列任务</strong><br>如果新请求的到达速率超过了线程池的处理速率，那么新到来的请求将累积起来。在线程池中，这些请求会在一个由Executor管理的Runnable队列中等待，而不会像线程那样去竞争CPU资源。</p>
+<p>对于非常大的或者无界的线程池，可以通过使用SynchronousQueue来避免任务排队，以及直接将任务从生产者移交给工作者线程。SynchronousQueue不是一个真正的队列，而是一种在线程间进行移交的机制。要将一个元素放入SynchronousQueue中，必须有另一个线程正在等待接受这个元素。如果没有线程正在等待，并且线程池的当前大小小于最大值，那么ThreadPoolExecutor将创建一个新的线程，否则根据饱和策略，这个任务将被拒绝。</p>
+<p><strong>饱和策略</strong><br>当有界队列被填满后，饱和策略开始发挥作用。ThreadPoolExecutor的饱和策略可以通过调用setRejectedExecutionHandler来修改。JDK提供了几种不同的RejectedExecutionHandler实现，每种实现都包含有不同的饱和策略：AbortPolicy（终止）、CallerRunsPolicy（调用者运行）、DiscardPolicy（抛弃）和DiscardOldestPolicy（抛弃最旧的）。</p>
+<p>参考书籍<br>《Java并发编程实战》—<br>title: java-线程池学习<br>date: 2017-05-04 21:19:03</p>
+<h2 id="tags"><a href="#tags" class="headerlink" title="tags:"></a>tags:</h2>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/12/如何给动态元素添加事件/">如何给动态元素添加事件</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/03/12/java-double比较大小/" class="archive-article-date">
-  <time datetime="2017-03-12T14:00:01.000Z" itemprop="datePublished">Mar 12</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/24/java-线程池学习/" data-id="cj2afwlks0002zk99pr196skr" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/12/java-double比较大小/">java double比较大小</a>
-    </h1>
-  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/线程池/">线程池</a></li></ul>
 
-    </header>
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/05/04/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Hello World
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/03/19/链表中环的入口节点/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">链表中环的入口节点</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 </section>
         
