@@ -4,13 +4,12 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>杏仁的博客</title>
+    <title>ThreadPoolExecutor源码理解 | 杏仁的博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="杏仁">
     
-    <meta name="description" content="/Users/gulingling/Desktop/myblock/source/_posts/java-线程池学习.mdtitle: ThreadPoolExecutor源码理解date: 2017-05-05 20:33:09categories: Java
-tags: [java,线程池]当提">
+    <meta name="description" content="当提交一个任务时，若线程数少于corePoolSize，将会创建一个新线程来处理请求，即使有其他工作线程空闲。若线程数多于corePoolSize但少于maximumPoolSize，只有当任务队列满了的情况下才会创建新线程。若corePoolSize和maximumPoolSize被设置为相等，则">
     
     
     
@@ -70,7 +69,7 @@ tags: [java,线程池]当提">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/05/05/ThreadPoolExecutor源码理解/" title="" itemprop="url"></a>
+      <a href="/2017/05/05/ThreadPoolExecutor源码理解/" title="ThreadPoolExecutor源码理解" itemprop="url">ThreadPoolExecutor源码理解</a>
   </h1>
   <p class="article-author">By
     
@@ -87,11 +86,10 @@ tags: [java,线程池]当提">
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Users-gulingling-Desktop-myblock-source-posts-java-线程池学习-md"><span class="toc-number">1.</span> <span class="toc-text">/Users/gulingling/Desktop/myblock/source/_posts/java-线程池学习.md</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tags-java-线程池"><span class="toc-number">2.</span> <span class="toc-text">tags: [java,线程池]</span></a></li></ol>
+		
 		</div>
 		
-		<h2 id="Users-gulingling-Desktop-myblock-source-posts-java-线程池学习-md"><a href="#Users-gulingling-Desktop-myblock-source-posts-java-线程池学习-md" class="headerlink" title="/Users/gulingling/Desktop/myblock/source/_posts/java-线程池学习.md"></a>/Users/gulingling/Desktop/myblock/source/_posts/java-线程池学习.md</h2><p>title: ThreadPoolExecutor源码理解<br>date: 2017-05-05 20:33:09<br>categories: Java</p>
-<h2 id="tags-java-线程池"><a href="#tags-java-线程池" class="headerlink" title="tags: [java,线程池]"></a>tags: [java,线程池]</h2><p>当提交一个任务时，若线程数少于corePoolSize，将会创建一个新线程来处理请求，即使有其他工作线程空闲。若线程数多于corePoolSize但少于maximumPoolSize，只有当任务队列满了的情况下才会创建新线程。<br>若corePoolSize和maximumPoolSize被设置为相等，则创建了一个固定大小的线程池。</p>
+		<p>当提交一个任务时，若线程数少于corePoolSize，将会创建一个新线程来处理请求，即使有其他工作线程空闲。若线程数多于corePoolSize但少于maximumPoolSize，只有当任务队列满了的情况下才会创建新线程。<br>若corePoolSize和maximumPoolSize被设置为相等，则创建了一个固定大小的线程池。</p>
 <p>如果线程池中有超过corePoolSize的线程，超过的线程将被终止，如果它们空闲时间大于keepAliveTime。当池没有被积极使用时，能减少资源消耗，如果线程池变得活跃，新线程会再被创建。<br>将值设为Long.MAX_VALUE能有效地防止空闲线程在池关闭前结束。<br>只有当线程数超过corePoolSize时，keep-alive策略才生效。但是方法allowCoreThreadTimeOut可以使超时策略在基本线程上生效，只要keepAliveTime非零。</p>
 <p>有3种队列：直接移交、有界队列和无界队列。<br>无界队列：当所有corePoolSize线程忙时，任务将会在队列中等待，不会有超过corePoolSize个数的线程被创建（maximumPoolSize参数根本不会起作用）</p>
 <p>当Executor关闭或者线程数量和工作队列都达到最大值时，新提交的任务将会被拒绝。有4种饱和策略：AbortPolicy、CallerRunsPolicy、DiscardPolicy、DiscardOldestPolicy。</p>
@@ -99,12 +97,22 @@ tags: [java,线程池]当提">
 	</div>
 		<footer class="article-footer clearfix">
 
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/java/">java</a><a href="/tags/线程池/">线程池</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+</div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://yoursite.com/2017/05/05/ThreadPoolExecutor源码理解/" data-title="杏仁的博客" data-tsina="null" class="share clearfix">
+  <div data-url="http://yoursite.com/2017/05/05/ThreadPoolExecutor源码理解/" data-title="ThreadPoolExecutor源码理解 | 杏仁的博客" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -134,7 +142,7 @@ tags: [java,线程池]当提">
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Users-gulingling-Desktop-myblock-source-posts-java-线程池学习-md"><span class="toc-number">1.</span> <span class="toc-text">/Users/gulingling/Desktop/myblock/source/_posts/java-线程池学习.md</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tags-java-线程池"><span class="toc-number">2.</span> <span class="toc-text">tags: [java,线程池]</span></a></li></ol>
+  
   </div>
 
 <div id="asidepart">
@@ -146,7 +154,7 @@ tags: [java,线程池]当提">
 	<p class="asidetitle">Categories</p>
 		<ul>
 		
-			<li><a href="/categories/Java/" title="Java">Java<sup>17</sup></a></li>
+			<li><a href="/categories/Java/" title="Java">Java<sup>18</sup></a></li>
 		
 			<li><a href="/categories/Javascript/" title="Javascript">Javascript<sup>3</sup></a></li>
 		
@@ -171,7 +179,7 @@ tags: [java,线程池]当提">
 		
 			<li><a href="/tags/intern/" title="intern">intern<sup>1</sup></a></li>
 		
-			<li><a href="/tags/java/" title="java">java<sup>16</sup></a></li>
+			<li><a href="/tags/java/" title="java">java<sup>17</sup></a></li>
 		
 			<li><a href="/tags/javascript/" title="javascript">javascript<sup>3</sup></a></li>
 		
