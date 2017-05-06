@@ -1,12 +1,371 @@
-extends base.jade
-block content
-    a(href="#{config.root}").read-more Read the entire novel
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>java转账死锁问题 | 杏仁的博客</title>
+  <meta name="author" content="杏仁">
+  
+  <meta name="description" content="Java | Javascript | web | tools">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    article.article.clear
-        header.header
-          h1= page.title
-        != page.content
+  <meta property="og:title" content="java转账死锁问题"/>
+  <meta property="og:site_name" content="杏仁的博客"/>
 
-    a(href="#{config.root}").read-more Read the entire novel
+  
+    <meta property="og:image" content="undefined"/>
+  
 
-    != partial("_partials/author.jade")
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="杏仁的博客" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script src="/js/jquery.min.js"></script>
+
+  
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45019001-1', 'topdna.org');
+  ga('send', 'pageview');
+</script>
+
+
+</head>
+
+
+<body>
+  <!--[if lte IE 8]> <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'> <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode"><img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0027_Simplified Chinese.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." style='margin-left:auto;margin-right:auto;display: block;'/></a></div> <![endif]-->
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">杏仁的博客</a></h1>
+  <h2><a href="/">我的学习笔记</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">首页</a></li>
+    
+      <li><a href="http://traceinvest.com">TraceInvest</a></li>
+    
+      <li><a href="/categories/essay/">随感</a></li>
+    
+      <li><a href="/categories/tech/">技术</a></li>
+    
+      <li><a href="/categories/investment/">理财</a></li>
+    
+      <li><a href="/categories/life/">生活</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <time datetime="2017-03-25T14:23:23.000Z"><a href="/2017/03/25/java转账死锁问题/">2017-03-25</a></time>
+      
+      
+  
+    <h1 class="title">java转账死锁问题</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p><strong>示例一：</strong>如下代码容易发生死锁<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">transferMoney</span><span class="params">(Account fromAccount,</span></span></div><div class="line">Account toAccount,</div><div class="line">DollarAmount amount)</div><div class="line"><span class="keyword">throws</span> InsufficientFundsException</div><div class="line">&#123;</div><div class="line"><span class="keyword">synchronized</span>(fromAccount)</div><div class="line">&#123;</div><div class="line"><span class="keyword">synchronized</span>(toAccount)</div><div class="line">&#123;</div><div class="line"><span class="keyword">if</span>(fromAccount.getBalance().compareTo(amount) &lt; <span class="number">0</span>)</div><div class="line">&#123;</div><div class="line"><span class="keyword">throw</span> <span class="keyword">new</span> InsufficientFundsException();</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span></div><div class="line">&#123;</div><div class="line">fromAccount.debit(amount);</div><div class="line">toAccount.credit(amount);</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>示例二：</strong>通过锁顺序来避免死锁<br>在极少数情况下，两个对象可能拥有相同的散列值，此时必须通过某种任意的方法来决定锁的顺序，而这可能又会重新引入死锁。为了避免这种情况，可以使用“加时赛”锁。在获得两个Account锁之前，首先获得这个“加时赛”锁，从而保证每次只有一个线程以未知的顺序获得这两个锁，从而消除了死锁发生的可能性。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">transferMoney</span><span class="params">(Account fromAccount,</span></span></div><div class="line">Account toAccount,</div><div class="line">DollarAmount amount)</div><div class="line"><span class="keyword">throws</span> InsufficientFundsException</div><div class="line">&#123;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Helper</span></span>&#123;</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">transfer</span><span class="params">()</span> <span class="keyword">throws</span> InsufficientFundsException</span></div><div class="line">&#123;</div><div class="line"><span class="keyword">if</span>(fromAccount.getBalance().compareTo(amount) &lt; <span class="number">0</span>)</div><div class="line">&#123;</div><div class="line"><span class="keyword">throw</span> <span class="keyword">new</span> InsufficientFundsException();</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span></div><div class="line">&#123;</div><div class="line">fromAccount.debit(amount);</div><div class="line">toAccount.credit(amount);</div><div class="line">&#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">int</span> fromHash = System.identityHashCode(fromAccount);</div><div class="line"><span class="keyword">int</span> toHash = System.identityHashCode(toAccount);</div><div class="line"></div><div class="line"><span class="keyword">if</span>(fromHash &lt; toHash)</div><div class="line">&#123;</div><div class="line"><span class="keyword">synchronized</span>(fromAccount)</div><div class="line">&#123;</div><div class="line"><span class="keyword">synchronized</span>(toAccount)</div><div class="line">&#123;</div><div class="line"><span class="keyword">new</span> Helper().transfer();</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> <span class="keyword">if</span>(fromHash &gt; toHash)</div><div class="line">&#123;</div><div class="line"><span class="keyword">synchronized</span>(toAccount)</div><div class="line">&#123;</div><div class="line"><span class="keyword">synchronized</span>(fromAccount)</div><div class="line">&#123;</div><div class="line"><span class="keyword">new</span> Helper().transfer();</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span></div><div class="line">&#123;</div><div class="line"><span class="keyword">synchronized</span>(tieLock)</div><div class="line">&#123;</div><div class="line"><span class="keyword">synchronized</span>(fromAccount)</div><div class="line">&#123;</div><div class="line"><span class="keyword">synchronized</span>(toAccount)</div><div class="line">&#123;</div><div class="line"><span class="keyword">new</span> Helper().transfer();</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>示例三：通过tryLock来避免锁顺序死锁</strong><br>使用tryLock来获取两个锁，如果不能同时获取，那么就回退并重新尝试。在休眠时间中包括固定部分和随机部分，从而降低发生活锁的可能性。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">transferMoney</span><span class="params">(Account fromAccount,</span></span></div><div class="line">Account toAccount,</div><div class="line">DollarAmount amount,</div><div class="line"><span class="keyword">long</span> timeout,</div><div class="line">TimeUnit unit)</div><div class="line"><span class="keyword">throws</span> InsufficientFundsException, InterruptedException</div><div class="line">&#123;</div><div class="line"><span class="keyword">long</span> finedDelay = getFixedDelayComponentNanos(timeout,unit);</div><div class="line"><span class="keyword">long</span> randMod = getRandomDelayMoulusNanos(timeout,unit);</div><div class="line"><span class="keyword">long</span> stopTime = System.nanoTime() + unit.toNanos(timeout);</div><div class="line"></div><div class="line"><span class="keyword">while</span>(<span class="keyword">true</span>)</div><div class="line">&#123;</div><div class="line"><span class="keyword">if</span>(fromAccount.lock.tryLock())</div><div class="line">&#123;</div><div class="line"><span class="keyword">try</span>&#123;</div><div class="line"><span class="keyword">if</span>(toAccount.lock.tryLock())</div><div class="line">&#123;</div><div class="line"><span class="keyword">try</span>&#123;</div><div class="line"><span class="keyword">if</span>(fromAccount.getBalance().compareTo(amount) &lt; <span class="number">0</span>)</div><div class="line">&#123;</div><div class="line"><span class="keyword">throw</span> <span class="keyword">new</span> InsufficientFundsException();</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span></div><div class="line">&#123;</div><div class="line">fromAccount.debit(amount);</div><div class="line">toAccount.credit(amount);</div><div class="line"><span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">finally</span></div><div class="line">&#123;</div><div class="line">toAccount.lock.unlock();</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">finally</span></div><div class="line">&#123;</div><div class="line">fromAccount.lock.unlock();</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">if</span>(System.nanoTime() &lt; stopTime)</div><div class="line">&#123;</div><div class="line"><span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">&#125;</div><div class="line">NANOSECONDS.sleep(fixedDelay+rnd.nextLong()%randMod);</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>参考书籍<br>《Java并发编程实战》</p>
+
+      
+    </div>
+    <footer>
+      
+
+        
+          <div class="alignleft post-nav">
+            <em>上一篇: </em><a href="/2017/03/26/java构造函数this逸出/">java构造函数this逸出</a>
+          </div>
+        
+        
+          <div class="alignright post-nav">
+            <em>下一篇: </em><a href="/2017/03/24/java类的加载过程/">java类的加载过程</a>
+          </div>
+          <div class="clearfix"></div>
+        
+
+        
+          <div class="copyright">
+            
+              <span class="claim">版权声明：自由转载-非商用-无演绎-保持署名 @ Creative Commons BY-NC-ND 3.0</span>
+            
+            
+              <span class="from-link">
+                <em>本文链接地址:</em>
+                <a href="/2017/03/25/java转账死锁问题/">
+                  http://yoursite.com/2017/03/25/java转账死锁问题/
+                </a>
+              </span>
+            
+          </div>
+        
+        
+  
+  <div class="categories">
+    <a href="/categories/Java/">Java</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/java/">java</a>, <a href="/tags/转账/">转账</a>, <a href="/tags/死锁/">死锁</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+    
+    
+      <a class="addthis_button_sinaweibo_like"></a>
+    
+    
+      <a class="addthis_button_linkedin"></a>
+    
+    
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+<section id="comment">
+  <h1 class="title">Kommentare</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2017/03/25/java转账死锁问题/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="text" name="q" results="0" placeholder="Suche">
+    <i class="icon-search"></i>
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/Builder/">Builder</a><small>1</small></li>
+  
+    <li><a href="/tags/JavaBean/">JavaBean</a><small>1</small></li>
+  
+    <li><a href="/tags/double/">double</a><small>1</small></li>
+  
+    <li><a href="/tags/equals/">equals</a><small>1</small></li>
+  
+    <li><a href="/tags/hashCode/">hashCode</a><small>1</small></li>
+  
+    <li><a href="/tags/intern/">intern</a><small>1</small></li>
+  
+    <li><a href="/tags/java/">java</a><small>17</small></li>
+  
+    <li><a href="/tags/javascript/">javascript</a><small>3</small></li>
+  
+    <li><a href="/tags/jvm/">jvm</a><small>1</small></li>
+  
+    <li><a href="/tags/map/">map</a><small>1</small></li>
+  
+    <li><a href="/tags/markdown/">markdown</a><small>1</small></li>
+  
+    <li><a href="/tags/set/">set</a><small>1</small></li>
+  
+    <li><a href="/tags/synchronized/">synchronized</a><small>1</small></li>
+  
+    <li><a href="/tags/textarea/">textarea</a><small>1</small></li>
+  
+    <li><a href="/tags/this逸出/">this逸出</a><small>1</small></li>
+  
+    <li><a href="/tags/volatile/">volatile</a><small>1</small></li>
+  
+    <li><a href="/tags/事件/">事件</a><small>1</small></li>
+  
+    <li><a href="/tags/列表/">列表</a><small>1</small></li>
+  
+    <li><a href="/tags/动态/">动态</a><small>1</small></li>
+  
+    <li><a href="/tags/发布/">发布</a><small>1</small></li>
+  
+    <li><a href="/tags/变量/">变量</a><small>1</small></li>
+  
+    <li><a href="/tags/垃圾收集器/">垃圾收集器</a><small>2</small></li>
+  
+    <li><a href="/tags/安全/">安全</a><small>1</small></li>
+  
+    <li><a href="/tags/并发/">并发</a><small>1</small></li>
+  
+    <li><a href="/tags/拆箱/">拆箱</a><small>1</small></li>
+  
+    <li><a href="/tags/指针/">指针</a><small>2</small></li>
+  
+    <li><a href="/tags/换行符/">换行符</a><small>1</small></li>
+  
+    <li><a href="/tags/构造函数/">构造函数</a><small>2</small></li>
+  
+    <li><a href="/tags/构造器/">构造器</a><small>1</small></li>
+  
+    <li><a href="/tags/正则表达式/">正则表达式</a><small>1</small></li>
+  
+    <li><a href="/tags/死锁/">死锁</a><small>1</small></li>
+  
+    <li><a href="/tags/比较大小/">比较大小</a><small>1</small></li>
+  
+    <li><a href="/tags/永久代/">永久代</a><small>1</small></li>
+  
+    <li><a href="/tags/环/">环</a><small>2</small></li>
+  
+    <li><a href="/tags/类加载/">类加载</a><small>1</small></li>
+  
+    <li><a href="/tags/线程池/">线程池</a><small>2</small></li>
+  
+    <li><a href="/tags/装箱/">装箱</a><small>1</small></li>
+  
+    <li><a href="/tags/转账/">转账</a><small>1</small></li>
+  
+    <li><a href="/tags/链表/">链表</a><small>2</small></li>
+  
+    <li><a href="/tags/队列/">队列</a><small>1</small></li>
+  
+    <li><a href="/tags/集合/">集合</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  <div class="trace-invest">
+    <span>
+        <a href="http://traceinvest.com" target="_blank">欢迎光临我的美股投资相关网站 :</br>traceinvest.com</a>
+    </span>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Neueste Artikel</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2017/05/05/ThreadPoolExecutor源码理解/">ThreadPoolExecutor源码理解</a>
+      </li>
+    
+      <li>
+        <a href="/2017/05/04/hello-world/">Hello World</a>
+      </li>
+    
+      <li>
+        <a href="/2017/03/31/Java集合学习/">Java集合学习</a>
+      </li>
+    
+      <li>
+        <a href="/2017/03/28/java覆盖equals和hashCode方法/">java覆盖equals和hashCode方法</a>
+      </li>
+    
+      <li>
+        <a href="/2017/03/27/java构造器/">java构造器</a>
+      </li>
+    
+      <li>
+        <a href="/2017/03/26/java构造函数this逸出/">java构造函数this逸出</a>
+      </li>
+    
+      <li>
+        <a href="/2017/03/25/java转账死锁问题/">java转账死锁问题</a>
+      </li>
+    
+      <li>
+        <a href="/2017/03/24/java类的加载过程/">java类的加载过程</a>
+      </li>
+    
+      <li>
+        <a href="/2017/03/24/java的intern方法/">java的intern方法</a>
+      </li>
+    
+      <li>
+        <a href="/2017/03/24/jvm垃圾收集器/">jvm垃圾收集器</a>
+      </li>
+    
+      <li>
+        <a href="/2017/03/24/java-线程池学习/">java 线程池学习</a>
+      </li>
+    
+      <li>
+        <a href="/2017/03/19/链表中环的入口节点/">链表中环的入口节点</a>
+      </li>
+    
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <div id="go-pg-top"><i class="icon-arrow-up"></i></div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2017 杏仁
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/page.js"></script>
+
+
+</body>
+
+</html>

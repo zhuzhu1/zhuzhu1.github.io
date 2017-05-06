@@ -1,12 +1,691 @@
-extends base.jade
-block content
-    != partial("_partials/nav.jade", {page: page})
-    - page.posts.each(function(chapter) {
-    article.article.clear
-        header.header
-          h1= chapter.title
-        !=chapter.content
-    - })
-    != partial("_partials/nav.jade", {page: page})
-    if !page.prev || !page.next
-        != partial("_partials/author.jade")
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>杏仁的博客</title>
+  <meta name="author" content="杏仁">
+  
+  <meta name="description" content="Java | Javascript | web | tools">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="杏仁的博客"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="杏仁的博客" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script src="/js/jquery.min.js"></script>
+
+  
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45019001-1', 'topdna.org');
+  ga('send', 'pageview');
+</script>
+
+
+</head>
+
+
+<body>
+  <!--[if lte IE 8]> <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'> <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode"><img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0027_Simplified Chinese.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." style='margin-left:auto;margin-right:auto;display: block;'/></a></div> <![endif]-->
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">杏仁的博客</a></h1>
+  <h2><a href="/">我的学习笔记</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">首页</a></li>
+    
+      <li><a href="http://traceinvest.com">TraceInvest</a></li>
+    
+      <li><a href="/categories/essay/">随感</a></li>
+    
+      <li><a href="/categories/tech/">技术</a></li>
+    
+      <li><a href="/categories/investment/">理财</a></li>
+    
+      <li><a href="/categories/life/">生活</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper">
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <time datetime="2017-05-05T12:33:09.000Z"><a href="/2017/05/05/ThreadPoolExecutor源码理解/">2017-05-05</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2017/05/05/ThreadPoolExecutor源码理解/">ThreadPoolExecutor源码理解</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>当提交一个任务时，若线程数少于corePoolSize，将会创建一个新线程来处理请求，即使有其他工作线程空闲。若线程数多于corePoolSize但少于maximumPoolSize，只有当任务队列满了的情况下才会创建新线程。<br>若corePoolSize和maximumPoolSize被设置为相等，则创建了一个固定大小的线程池。</p>
+<p>如果线程池中有超过corePoolSize的线程，超过的线程将被终止，如果它们空闲时间大于keepAliveTime。当池没有被积极使用时，能减少资源消耗，如果线程池变得活跃，新线程会再被创建。<br>将值设为Long.MAX_VALUE能有效地防止空闲线程在池关闭前结束。<br>只有当线程数超过corePoolSize时，keep-alive策略才生效。但是方法allowCoreThreadTimeOut可以使超时策略在基本线程上生效，只要keepAliveTime非零。</p>
+<p>有3种队列：直接移交、有界队列和无界队列。<br>无界队列：当所有corePoolSize线程忙时，任务将会在队列中等待，不会有超过corePoolSize个数的线程被创建（maximumPoolSize参数根本不会起作用）</p>
+<p>当Executor关闭或者线程数量和工作队列都达到最大值时，新提交的任务将会被拒绝。有4种饱和策略：AbortPolicy、CallerRunsPolicy、DiscardPolicy、DiscardOldestPolicy。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <time datetime="2017-05-04T12:26:40.000Z"><a href="/2017/05/04/hello-world/">2017-05-04</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2017/05/04/hello-world/">Hello World</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <time datetime="2017-03-31T14:40:41.000Z"><a href="/2017/03/31/Java集合学习/">2017-03-31</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2017/03/31/Java集合学习/">Java集合学习</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p><strong>队列（queue）</strong><br>队列通常用两种实现方式：一种是使用循环数组，另一种是使用链表。<br>循环数组是一个有界集合，即容量有限。如果程序中要收集的对象数量没有上限，就最好使用链表来实现。<br>编译器简单地将“for each”循环翻译为带有迭代器的循环。collection接口扩展了iterable接口，因此，对于标准类库中的任何集合都可以使用“for each”循环。</p>
+<p>应该将<strong>Java迭代器</strong>认为是位于两个元素之间。当调用next时，迭代器就越过下一个元素，并返回刚刚越过的那个元素的引用。<br>Iterator接口的remove方法将会删除上次调用next方法时返回的元素，对next方法和remove方法的调用具有互相依赖性，如果调用remove之前没有调用next方法是不合理的，将会抛出一个IllegalStateException异常。</p>
+<p>在java SE6中引入了Deque接口，并有ArrayDeque和LinkedList实现。这两个类都提供了双端队列，而且在必要时可以增加队列的长度。<br><strong>优先级队列</strong><br>优先级队列使用了一个优雅且高效的数据结构，<em>堆</em>。<br><strong>列表</strong><br><strong>链表</strong><br>在java程序设计语言中，所有链表实际上都是<em>双向链接</em>的。</p>
+<p>链表不支持快速地随机访问。如果要查看链表中第n个元素，就必须从头开始，越过n-1个元素，没有捷径可走。<br>链表的get方法，效率比较低，绝对不应该使用这种让人误解的随机访问方法来遍历链表。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span>(<span class="keyword">int</span> I = <span class="number">0</span>; I &lt; list.size(); i++)</div><div class="line"><span class="keyword">do</span> something with list.get(i)</div></pre></td></tr></table></figure></p>
+<p>每次查找一个元素都要从列表的头部重新开始搜索，linkedList对象根本不做任何缓存位置信息的操作。</p>
+<p><strong>集</strong><br><strong>散列集</strong><br>在Java中，散列表用链表数组实现，每个列表被称为桶。<br>java集合类库提供了一个hashSet类，它实现了基于散列表的集。<br>注：要更改集中的元素时要格外小心。如果元素的散列码发生了改变，元素在数据结构中的位置也会发生变化。<br><strong>树集</strong><br>树集treeSet是一个有序集合，当前用的是<em>红黑树</em>。<br><strong>映射表</strong><br>可以获得映射表的视图，这是一组实现了collection接口对象，或者它的子接口的视图。<br>有3个视图，它们分别是：键集、值集合（不是集set）和键/值对集。<br>注：keyset既不是HashSet，也不是TreeSet，而是实现了set接口的某个其他类的对象。</p>
+<p>参考书籍<br>《Java核心技术 卷1》</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <time datetime="2017-03-28T14:26:17.000Z"><a href="/2017/03/28/java覆盖equals和hashCode方法/">2017-03-28</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2017/03/28/java覆盖equals和hashCode方法/">java覆盖equals和hashCode方法</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>在覆盖equals方法的时候，必须要遵守它的通用约定：<br><strong>自反性：</strong>对于任何非null的引用值x，x.equals(x)必须返回true。<br><strong>对称性：</strong>对于任何非null的引用值x和y，当且仅当y.equals(x)返回true时，x.equals(y)必须返回true。<br><strong>传递性：</strong>对于任何非null的引用值x、y和z，如果x.equals(y)返回true，并且y.equals(z)返回true，那么x.equals(z)也必须返回true。<br><strong>一致性：</strong>对于任何非null的引用值x和y，只要equals的比较操作在对象中所用的信息没有被修改，多次调用x.equals(y)就会一致地返回true，或者一致地返回false。<br><strong>非空性：</strong>对于任何非null的引用值x，x.equals(null)必须返回false。</p>
+<p><strong>对称性：</strong><br>在这个示例中，equals方法的意图非常好，它企图与普通的字符串对象进行互操作。但是String类中的equals方法却并不知道不区分大小写的字符串类的存在，显然违反了对称性。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">CaseInsensitiveString</span> </span>&#123;</div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> String s;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">CaseInsensitiveString</span><span class="params">(String s)</span></span></div><div class="line">&#123;</div><div class="line"><span class="keyword">if</span>(s == <span class="keyword">null</span>)</div><div class="line">&#123;</div><div class="line"><span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</div><div class="line">&#125;</div><div class="line"><span class="keyword">this</span>.s = s;</div><div class="line">&#125;</div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span></span></div><div class="line">&#123;</div><div class="line"><span class="keyword">if</span>(o <span class="keyword">instanceof</span> CaseInsensitiveString)</div><div class="line">&#123;</div><div class="line"><span class="keyword">return</span> s.equalsIgnoreCase(((CaseInsensitiveString)o).s);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">if</span>(o <span class="keyword">instanceof</span> String)</div><div class="line">&#123;</div><div class="line"><span class="keyword">return</span> s.equalsIgnoreCase((String)o);</div><div class="line">&#125;</div><div class="line"><span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>假设我们有一个不区分大小写的字符串和一个普通的字符串，很容易就看出两句输出的结果。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">CaseInsensitiveString cis = <span class="keyword">new</span> CaseInsensitiveString(<span class="string">"Hello"</span>);</div><div class="line">String s = <span class="string">"Hello"</span>;</div><div class="line">System.out.println(cis.equals(s));</div><div class="line">System.out.println(s.equals(cis));</div></pre></td></tr></table></figure></p>
+<p><strong>传递性：</strong><br><em>我们无法在扩展可实例化的类的同时，既增加新的值组件，同时又保留equals约定，除非愿意放弃面向对象的抽象所带来的优势。</em>虽然没有一种令人满意的办法可以既扩展可实例化的类，又增加值组件，但还有一种不错的权益之计：复合优先于继承。<br><strong>注：</strong>可以在一个抽象类的子类中增加新的值组件，而不会违反equals约定。只要不可能直接创建超类的实例，前面所述的问题都不会发生。</p>
+<p>为了获得最佳的性能，应该最优先比较最有可能不一致的域，或者是开销最低的域。</p>
+<p><strong>覆盖equals时总要覆盖hashCode</strong><br>下面约定的内容，摘自Object规范：</p>
+<blockquote>
+<p>如果两个对象根据equals方法比较是相等的，那么调用这两个对象中任意一个对象的hashCode方法&gt;都必须产生同样的整数结果。<br>如果两个对象根据equals方法比较是不相等的，那么调用这两个对象中任意一个对象的hashCode方&gt;法，则不一定要产生不同的整数结果。但是应该知道，给不相等的对象产生截然不同的整数结果，&gt;有可能提高散列表的性能。</p>
+</blockquote>
+<p>一个好的散列函数通常倾向于“为不相等的对象产生不相等的散列码”</p>
+<ol>
+<li>把某个非零的常数值，比如说17，保存在一个名为result的int类型的变量中。</li>
+<li>对于对象中每个关键域f，完成以下步骤：</li>
+<li>为该域计算int类型的散列码c:</li>
+<li>如果该域是boolean类型，则计算(f?1:0)。</li>
+<li>如果该域是byte、char、short或者int类型，则计算(int)f。</li>
+<li>如果该域是long类型，则计算(int)(f^(f&gt;&gt;&gt;32))。</li>
+<li>如果该域是float类型，则计算Float.floatToIntBits(f)。</li>
+<li>如果该域是double类型，则计算Double.doubleToLongBits(f)，然后按照步骤2.1.3，为得到的long类型值计算散列值。</li>
+<li>如果该域是一个对象引用，并且该类的equals方法通过递归地调用equals的方式来比较这个域，则同样为这个域递归地调用hashCode。如果需要更复杂的比较，则为这个域计算一个“范式”，然后针对这个范式调用hashCode。如果这个域的值为null，则返回0.</li>
+<li>如果该域是一个数组，则要把每个元素当做单独的域来处理。也就是说，递归地引用上述规则，对每个重要的元素计算一个散列码，然后根据2.2中的做法，把这些散列值组合起来。如果数组域中的每个元素都很重要，可以利用发行版本1.5中增加的其中一个Arrays.hashCode方法。</li>
+<li>按照下面的公式，把步骤2.1中计算得到的散列码c合并到result中：<br>result = 31*result+c;</li>
+<li>返回result。</li>
+</ol>
+<p>参考书籍<br>《Effective Java中文版 第2版》</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <time datetime="2017-03-27T13:02:02.000Z"><a href="/2017/03/27/java构造器/">2017-03-27</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2017/03/27/java构造器/">java构造器</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>静态工厂和构造函数有个共同的局限性：它们都不能很好地扩展到大量的可选参数。</p>
+<p><strong>示例一：</strong>重叠构造器模式<br>这个构造器调用通常需要许多你本不想设置的参数，但还是不得不为它们传递值。重叠构造器模式可行，但是当有许多参数的时候，客户端代码会很难编写，并且仍然较难以阅读。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NutritionFacts</span> </span>&#123;</div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> servingSize;<span class="comment">//required</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> servings;<span class="comment">//required</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> calories;<span class="comment">//optional</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> fat;<span class="comment">//optional</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> sodium;<span class="comment">//optional</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> carbohydrate;<span class="comment">//optional</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">NutritionFacts</span><span class="params">(<span class="keyword">int</span> servingSize, <span class="keyword">int</span> servings)</span></span></div><div class="line">&#123;</div><div class="line"><span class="keyword">this</span>(servingSize, servings, <span class="number">0</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">NutritionFacts</span><span class="params">(<span class="keyword">int</span> servingSize, <span class="keyword">int</span> servings, <span class="keyword">int</span> calories)</span></span></div><div class="line">&#123;</div><div class="line"><span class="keyword">this</span>(servingSize, servings, calories, <span class="number">0</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">NutritionFacts</span><span class="params">(<span class="keyword">int</span> servingSize, <span class="keyword">int</span> servings, <span class="keyword">int</span> calories, <span class="keyword">int</span> fat)</span></span></div><div class="line">&#123;</div><div class="line"><span class="keyword">this</span>(servingSize, servings, calories, fat, <span class="number">0</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">NutritionFacts</span><span class="params">(<span class="keyword">int</span> servingSize, <span class="keyword">int</span> servings, <span class="keyword">int</span> calories, <span class="keyword">int</span> fat, <span class="keyword">int</span> sodium)</span></span></div><div class="line">&#123;</div><div class="line"><span class="keyword">this</span>(servingSize, servings, calories, fat, sodium, <span class="number">0</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">NutritionFacts</span><span class="params">(<span class="keyword">int</span> servingSize, <span class="keyword">int</span> servings, </span></span></div><div class="line"><span class="keyword">int</span> calories, <span class="keyword">int</span> fat, <span class="keyword">int</span> sodium, <span class="keyword">int</span> carbohydrate)</div><div class="line">&#123;</div><div class="line"><span class="keyword">this</span>.servingSize = servingSize;</div><div class="line"><span class="keyword">this</span>.servings = servingSize;</div><div class="line"><span class="keyword">this</span>.calories = calories;</div><div class="line"><span class="keyword">this</span>.fat = fat;</div><div class="line"><span class="keyword">this</span>.sodium = sodium;</div><div class="line"><span class="keyword">this</span>.carbohydrate = carbohydrate;</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>遇到许多构造器参数的时候，还有第二种代替办法，即JavaBeans模式，在这种模式下，①调用一个无参构造器来创建对象，②然后调用setter方法来设置每个必要的参数，以及每个相关的可选参数。</p>
+<p><strong>示例二：</strong>JavaBeans模式<br>这种模式弥补了重叠构造器模式的不足，就是创建实例很容易，代码也易读一些。遗憾的是，JavaBeans模式自身有着很严重的缺点，因为构造过程被分到了几个调用中，在构造过程中，JavaBeans可能处于不一致的状态。于此相关的另一点不足在于，JavaBeans模式阻止了把类做成不可变的可能，这就需要程序员付出额外的努力来确保它的线程安全。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NutritionFacts</span> </span>&#123;</div><div class="line"><span class="keyword">private</span> <span class="keyword">int</span> servingSize = -<span class="number">1</span>;<span class="comment">//required</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">int</span> servings = -<span class="number">1</span>;<span class="comment">//required</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">int</span> calories = <span class="number">0</span>;<span class="comment">//optional</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">int</span> fat = <span class="number">0</span>;<span class="comment">//optional</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">int</span> sodium = <span class="number">0</span>;<span class="comment">//optional</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">int</span> carbohydrate = <span class="number">0</span>;<span class="comment">//optional</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">NutritionFacts</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setServingSize</span><span class="params">(<span class="keyword">int</span> val)</span></span></div><div class="line">&#123;</div><div class="line">servingSize = val;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setServings</span><span class="params">(<span class="keyword">int</span> val)</span></span></div><div class="line">&#123;</div><div class="line">servings = val;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCalories</span><span class="params">(<span class="keyword">int</span> val)</span></span></div><div class="line">&#123;</div><div class="line">calories = val;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setFat</span><span class="params">(<span class="keyword">int</span> val)</span></span></div><div class="line">&#123;</div><div class="line">fat = val;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSodium</span><span class="params">(<span class="keyword">int</span> val)</span></span></div><div class="line">&#123;</div><div class="line">sodium = val;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCarbohydrate</span><span class="params">(<span class="keyword">int</span> val)</span></span></div><div class="line">&#123;</div><div class="line">carbohydrate = val;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></div><div class="line">&#123;</div><div class="line">NutritionFacts cocaCola = <span class="keyword">new</span> NutritionFacts();</div><div class="line">cocaCola.setServingSize(<span class="number">240</span>);</div><div class="line">cocaCola.setServings(<span class="number">8</span>);</div><div class="line">cocaCola.setCalories(<span class="number">100</span>);</div><div class="line">cocaCola.setSodium(<span class="number">35</span>);</div><div class="line">cocaCola.setSodium(<span class="number">27</span>);</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>第三种方法，既能保证像重叠构造器模式那样安全，也能保证像JavaBeans模式那样好的可读性。这就是Builder模式的一种形式。<br><strong>示例三：</strong>Builder模式<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NutritionFacts</span> </span>&#123;</div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> servingSize;<span class="comment">//required</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> servings;<span class="comment">//required</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> calories;<span class="comment">//optional</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> fat;<span class="comment">//optional</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> sodium;<span class="comment">//optional</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> carbohydrate;<span class="comment">//optional</span></div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Builder</span></span>&#123;</div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> servingSize;</div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> servings;</div><div class="line"></div><div class="line"><span class="keyword">private</span> <span class="keyword">int</span> calories = <span class="number">0</span>;</div><div class="line"><span class="keyword">private</span> <span class="keyword">int</span> fat  = <span class="number">0</span>;</div><div class="line"><span class="keyword">private</span> <span class="keyword">int</span> sodium  = <span class="number">0</span>;</div><div class="line"><span class="keyword">private</span> <span class="keyword">int</span> carbohydrate  = <span class="number">0</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">Builder</span><span class="params">(<span class="keyword">int</span> servingSize, <span class="keyword">int</span> servings)</span></span></div><div class="line">&#123;</div><div class="line"><span class="keyword">this</span>.servingSize = servingSize;</div><div class="line"><span class="keyword">this</span>.servings = servings;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> Builder <span class="title">calories</span><span class="params">(<span class="keyword">int</span> val)</span></span></div><div class="line">&#123;</div><div class="line">calories = val;</div><div class="line"><span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">public</span> Builder <span class="title">fat</span><span class="params">(<span class="keyword">int</span> val)</span></span></div><div class="line">&#123;</div><div class="line">fat = val;</div><div class="line"><span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">public</span> Builder <span class="title">sodium</span><span class="params">(<span class="keyword">int</span> val)</span></span></div><div class="line">&#123;</div><div class="line">sodium = val;</div><div class="line"><span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">public</span> Builder <span class="title">carbohydrate</span><span class="params">(<span class="keyword">int</span> val)</span></span></div><div class="line">&#123;</div><div class="line">carbohydrate = val;</div><div class="line"><span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> NutritionFacts <span class="title">build</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line"><span class="keyword">return</span> <span class="keyword">new</span> NutritionFacts(<span class="keyword">this</span>);</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">private</span> <span class="title">NutritionFacts</span><span class="params">(Builder builder)</span></span></div><div class="line">&#123;</div><div class="line">servingSize = builder.servingSize;</div><div class="line">servings = builder.servings;</div><div class="line">calories = builder.calories;</div><div class="line">fat = builder.fat;</div><div class="line">sodium = builder.sodium;</div><div class="line">carbohydrate = builder.carbohydrate;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></div><div class="line">&#123;</div><div class="line">NutritionFacts cocaCola = <span class="keyword">new</span> NutritionFacts.Builder(<span class="number">240</span>,<span class="number">8</span>)</div><div class="line">.calories(<span class="number">100</span>).sodium(<span class="number">35</span>).sodium(<span class="number">27</span>).build();</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>参考书籍<br>《Effective Java中文版 第2版》</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <time datetime="2017-03-26T13:23:28.000Z"><a href="/2017/03/26/java构造函数this逸出/">2017-03-26</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2017/03/26/java构造函数this逸出/">java构造函数this逸出</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>当发布一个对象时，在该对象的非私有域中引用的所有对象同样会被发布。一般来说，如果一个已经发布的对象能够通过非私有的变量引用和方法调用到达其他的对象，那么这些对象也都会被发布。</p>
+<p>如下代码所示，当ThisEscape发布EventListener时，也隐含地发布了ThisEscape实例本身，因为在这个内部类的实例中包含了对ThisEscape实例的隐含引用。</p>
+<p><strong>示例一：</strong>隐式地使this引用逸出（不要这么做）<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThisEscape</span></span>&#123;</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThisEscape</span><span class="params">(EventSource source)</span></span></div><div class="line">&#123;</div><div class="line">source.registerListener(</div><div class="line"><span class="keyword">new</span> EventListener()</div><div class="line">&#123;</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onEvent</span><span class="params">(Event e)</span></span></div><div class="line">&#123;</div><div class="line">doSomething(e);</div><div class="line">&#125;</div><div class="line">&#125;);</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>当且仅当对象的构造函数返回时，对象才处于可预测的和一致的状态。因此，当从对象的构造函数中发布对象时，只是发布了一个尚未构造完成的对象，即使发布对象的语句位于构造函数的最后一行也是如此。如果this引用在构造函数中逸出，那么这种对象就被认为是不正确的构造。</p>
+<p>在构造函数中创建线程并没有错，但最好不要立即启用它，而是通过一个start或initialize方法来启用。</p>
+<p>如果想在构造函数中注册一个事件监听器或启动线程，那么可以使用一个私有的构造函数和一个公共的工厂方法，如示例二所示。<br><strong>示例二：</strong>使用工厂方法来防止this引用在构造过程中逸出<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> calss SafeListener&#123;</div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> EventListener listener;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="title">SafeListener</span><span class="params">()</span></span>&#123;</div><div class="line">listener = <span class="keyword">new</span> EventListener()</div><div class="line">&#123;</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onEvent</span><span class="params">(Event e)</span></span></div><div class="line">&#123;</div><div class="line">doSomething(e);</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SafeListener new <span class="title">Instance</span><span class="params">(EventSource source)</span></span></div><div class="line">&#123;</div><div class="line">SafeListener safe = <span class="keyword">new</span> SafeListener();</div><div class="line">source.registerListener(safe.listener);</div><div class="line"><span class="keyword">return</span> safe;</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>参考书籍<br>《Java并发编程实战》</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <time datetime="2017-03-25T14:23:23.000Z"><a href="/2017/03/25/java转账死锁问题/">2017-03-25</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2017/03/25/java转账死锁问题/">java转账死锁问题</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p><strong>示例一：</strong>如下代码容易发生死锁<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">transferMoney</span><span class="params">(Account fromAccount,</span></span></div><div class="line">Account toAccount,</div><div class="line">DollarAmount amount)</div><div class="line"><span class="keyword">throws</span> InsufficientFundsException</div><div class="line">&#123;</div><div class="line"><span class="keyword">synchronized</span>(fromAccount)</div><div class="line">&#123;</div><div class="line"><span class="keyword">synchronized</span>(toAccount)</div><div class="line">&#123;</div><div class="line"><span class="keyword">if</span>(fromAccount.getBalance().compareTo(amount) &lt; <span class="number">0</span>)</div><div class="line">&#123;</div><div class="line"><span class="keyword">throw</span> <span class="keyword">new</span> InsufficientFundsException();</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span></div><div class="line">&#123;</div><div class="line">fromAccount.debit(amount);</div><div class="line">toAccount.credit(amount);</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>示例二：</strong>通过锁顺序来避免死锁<br>在极少数情况下，两个对象可能拥有相同的散列值，此时必须通过某种任意的方法来决定锁的顺序，而这可能又会重新引入死锁。为了避免这种情况，可以使用“加时赛”锁。在获得两个Account锁之前，首先获得这个“加时赛”锁，从而保证每次只有一个线程以未知的顺序获得这两个锁，从而消除了死锁发生的可能性。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">transferMoney</span><span class="params">(Account fromAccount,</span></span></div><div class="line">Account toAccount,</div><div class="line">DollarAmount amount)</div><div class="line"><span class="keyword">throws</span> InsufficientFundsException</div><div class="line">&#123;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Helper</span></span>&#123;</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">transfer</span><span class="params">()</span> <span class="keyword">throws</span> InsufficientFundsException</span></div><div class="line">&#123;</div><div class="line"><span class="keyword">if</span>(fromAccount.getBalance().compareTo(amount) &lt; <span class="number">0</span>)</div><div class="line">&#123;</div><div class="line"><span class="keyword">throw</span> <span class="keyword">new</span> InsufficientFundsException();</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span></div><div class="line">&#123;</div><div class="line">fromAccount.debit(amount);</div><div class="line">toAccount.credit(amount);</div><div class="line">&#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">int</span> fromHash = System.identityHashCode(fromAccount);</div><div class="line"><span class="keyword">int</span> toHash = System.identityHashCode(toAccount);</div><div class="line"></div><div class="line"><span class="keyword">if</span>(fromHash &lt; toHash)</div><div class="line">&#123;</div><div class="line"><span class="keyword">synchronized</span>(fromAccount)</div><div class="line">&#123;</div><div class="line"><span class="keyword">synchronized</span>(toAccount)</div><div class="line">&#123;</div><div class="line"><span class="keyword">new</span> Helper().transfer();</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> <span class="keyword">if</span>(fromHash &gt; toHash)</div><div class="line">&#123;</div><div class="line"><span class="keyword">synchronized</span>(toAccount)</div><div class="line">&#123;</div><div class="line"><span class="keyword">synchronized</span>(fromAccount)</div><div class="line">&#123;</div><div class="line"><span class="keyword">new</span> Helper().transfer();</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span></div><div class="line">&#123;</div><div class="line"><span class="keyword">synchronized</span>(tieLock)</div><div class="line">&#123;</div><div class="line"><span class="keyword">synchronized</span>(fromAccount)</div><div class="line">&#123;</div><div class="line"><span class="keyword">synchronized</span>(toAccount)</div><div class="line">&#123;</div><div class="line"><span class="keyword">new</span> Helper().transfer();</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>示例三：通过tryLock来避免锁顺序死锁</strong><br>使用tryLock来获取两个锁，如果不能同时获取，那么就回退并重新尝试。在休眠时间中包括固定部分和随机部分，从而降低发生活锁的可能性。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">transferMoney</span><span class="params">(Account fromAccount,</span></span></div><div class="line">Account toAccount,</div><div class="line">DollarAmount amount,</div><div class="line"><span class="keyword">long</span> timeout,</div><div class="line">TimeUnit unit)</div><div class="line"><span class="keyword">throws</span> InsufficientFundsException, InterruptedException</div><div class="line">&#123;</div><div class="line"><span class="keyword">long</span> finedDelay = getFixedDelayComponentNanos(timeout,unit);</div><div class="line"><span class="keyword">long</span> randMod = getRandomDelayMoulusNanos(timeout,unit);</div><div class="line"><span class="keyword">long</span> stopTime = System.nanoTime() + unit.toNanos(timeout);</div><div class="line"></div><div class="line"><span class="keyword">while</span>(<span class="keyword">true</span>)</div><div class="line">&#123;</div><div class="line"><span class="keyword">if</span>(fromAccount.lock.tryLock())</div><div class="line">&#123;</div><div class="line"><span class="keyword">try</span>&#123;</div><div class="line"><span class="keyword">if</span>(toAccount.lock.tryLock())</div><div class="line">&#123;</div><div class="line"><span class="keyword">try</span>&#123;</div><div class="line"><span class="keyword">if</span>(fromAccount.getBalance().compareTo(amount) &lt; <span class="number">0</span>)</div><div class="line">&#123;</div><div class="line"><span class="keyword">throw</span> <span class="keyword">new</span> InsufficientFundsException();</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span></div><div class="line">&#123;</div><div class="line">fromAccount.debit(amount);</div><div class="line">toAccount.credit(amount);</div><div class="line"><span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">finally</span></div><div class="line">&#123;</div><div class="line">toAccount.lock.unlock();</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">finally</span></div><div class="line">&#123;</div><div class="line">fromAccount.lock.unlock();</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">if</span>(System.nanoTime() &lt; stopTime)</div><div class="line">&#123;</div><div class="line"><span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">&#125;</div><div class="line">NANOSECONDS.sleep(fixedDelay+rnd.nextLong()%randMod);</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>参考书籍<br>《Java并发编程实战》</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <time datetime="2017-03-24T13:03:47.000Z"><a href="/2017/03/24/java类的加载过程/">2017-03-24</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2017/03/24/java类的加载过程/">java类的加载过程</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p><strong>加载</strong><br>在加载阶段，虚拟机需要完成以下3件事情：<br>1）  通过一个类的全限定名来获取定义此类的二进制字节流。<br>2）  将这个字节流所代表的静态存储结构转换为方法区的运行时数据结构。<br>3）  在内存中生成一个代表这个类的java.lang.Class对象，作为方法区这个类的各种数据的访问入口。<br><strong>验证</strong><br>验证阶段大致上会完成下面4个阶段的检验动作：文件格式验证、元数据验证、字节码验证<br>、符合引用验证。<br><strong>准备</strong><br>准备阶段是正式为类变量分配内存并设置类变量初始值的阶段。这些变量所使用的内存都将在方法区中进行分配。这个阶段中有两个容易产生混淆的概念需要强调一下，<br>①   这时候进行内存分配的仅包括类变量（被static修饰的变量），而不包括实例变量，实例变量将会在对象实例化时随着对象一起分配在java堆中。<br>②   这里所说的初始值“通常情况”下是数据类型的零值，假设一个类变量的定义为<br><code>public static int value=123;</code><br>那变量value在准备阶段过后的初始值为0而不是123.<br>上面提到，在“通常情况”下初始值是零值，那相对的会有一些“特殊情况”：如果类字段的字段属性表中存在ConstantValue属性，那在准备阶段变量value就会被初始化为ConstantValue属性所指定的值，例如：<br><code>public static final int value=123;</code><br>编译时javac将会为value生成ConstantValue属性，在准备阶段虚拟机就会根据ConstantValue的设置将value赋值为123.</p>
+<p><strong>解析</strong><br>解析阶段是虚拟机将常量池内的符合引用替换为直接引用的过程。</p>
+<p>对于初始化阶段，虚拟机规范中严格规定了有且只有5种情况必须立即对类进行“初始化”（而加载、验证、准备自然需要在此之前开始）：<br>1）  遇到new、getstatic、putstatic或invokestatic这4条字节码指令时，如果类没有进行过初始化，则需要先触发其初始化。生成这4条指令的最常见的Java代码场景是：使用new关键字实例化对象的时候、读取或设置一个类的静态字段（被final修饰、已在编译器把结果放入常量池的静态字段除外）的时候，以及调用一个类的静态方法的时候。<br>2）  使用java.lang.reflect包的方法对类进行反射调用的时候，如果类没有进行过初始化，则需要先触发其初始化。<br>3）  当初始化一个类的时候，如果发现其父类还没有进行过初始化，则需要先触发其父类的初始化。<br>4）  当虚拟机启动时，用户需要指定一个要执行的主类（包含main()方法的那个类），虚拟机会先初始化这个主类。<br>5）  当使用JDK1.7的动态语言支持时，如果一个java.lang.invoke.MethodHandle实例最后解析的结果REF_getStatic、REF_putStatic、REF_invokeStatic的方法句柄，并且这个方法句柄所对应的类没有进行过初始化，则需要先触发其初始化。</p>
+<p>对于这5种触发类进行初始化的场景，虚拟机规范中使用了一个很强烈的限定语：“有且只有”，这5种场景中的行为称为对一个类进行主动引用。除此之外，所有引用类的方式都不会触发初始化，称为被动引用。</p>
+<p><img src="http://omt5ar039.bkt.clouddn.com/class_life.PNG" alt=""></p>
+<p><em>参考《深入理解java虚拟机》一书</em></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <time datetime="2017-03-24T12:58:58.000Z"><a href="/2017/03/24/java的intern方法/">2017-03-24</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2017/03/24/java的intern方法/">java的intern方法</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>思考如下代码的输出<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RuntimeConstantPoolOOM</span></span>&#123;</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></div><div class="line">&#123;</div><div class="line">String str1=<span class="keyword">new</span> StringBuilder(<span class="string">"计算机"</span>).append(<span class="string">"软件"</span>).toString();</div><div class="line">System.out.println(str1.intern() == str1);</div><div class="line">String str2=<span class="keyword">new</span> StringBuilder(<span class="string">"ja"</span>).append(<span class="string">"va"</span>).toString();</div><div class="line">System.out.println(str2.intern() == str2);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这段代码在JDK1.6中运行，会得到两个false，而在JDK1.7中运行，会得到一个true和一个false。</p>
+<p>产生差异的原因是：在JDK1.6中，intern()方法会把首次遇到的字符串实例复制到永久代中，返回的也是永久代中这个字符串实例的引用，而有StringBuilder创建的字符串实例在Java堆上，所以必然不是同一个引用，将返回false。<br>而JDK1.7（以及部分其他虚拟机，例如JRockit）的intern()实现不会再复制实例，只是在常量池中记录首次出现的实例引用，因此intern()返回的引用和有StringBuilder创建的那个字符串实例是同一个。<br>}</p>
+<p><em>参考《深入理解java虚拟机》一书</em></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <time datetime="2017-03-24T12:49:31.000Z"><a href="/2017/03/24/jvm垃圾收集器/">2017-03-24</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2017/03/24/jvm垃圾收集器/">jvm垃圾收集器</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>并行：指多条垃圾收集线程并行工作，但此时用户线程仍然处于等待状态。<br>并发：指用户线程与垃圾收集线程同时执行（但不一定是并行的，可能交替执行），用户程序在继续执行，而垃圾收集程序运行于另一个CPU上。</p>
+<p><img src="http://omt5ar039.bkt.clouddn.com/garbage%20collector.PNG" alt="垃圾收集器"><br><strong>Serial</strong><br>最基本、发展历史最悠久的收集器，曾经（JDK1.3.1之前）是虚拟机新生代收集器的唯一选择。<br><strong>PerNew</strong><br>Serial收集器的多线程版本。<br><strong>parallel Scavenge</strong><br>它的关注点与其他收集器不同，CMS等收集器的关注点是尽可能地缩短垃圾收集时用户线程的停顿时间，而Parallel Scavenge收集器的目标则是达到一个可控制的吞吐量。<br><strong>CMS</strong><br>是一种以获取最短回收停顿时间为目标的收集器。整个过程分为4个步骤：1初始标记，2并发标记，3重新标记，4并发清除。使用标记-清除算法。<br><strong>Serial Old</strong><br>是Serial收集器的老年的版本，同样是单线程收集器，使用标记-整理算法。<br><strong>Parallel Old</strong><br>使用多线程和标记-整理算法。<br><strong>G1</strong><br>是当今收集器技术发展的最前沿成果之一。</p>
+<p><em>参考《深入理解java虚拟机》一书</em></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+
+
+<ul class="page-direction" id="page-direction">
+    <li><a class="page-prev" href="javascript:;" title="Vorherige Seite">
+      <span class="icon-stack">
+        <i class="icon-circle icon-stack-base"></i>
+        <i class="icon-angle-left"></i>
+      </span>
+    <li><a class="page-next" href="javascript:;" title="Nächste Seite">
+      <span class="icon-stack">
+        <i class="icon-circle icon-stack-base"></i>
+        <i class="icon-angle-right"></i>
+      </span>
+    </a></li>
+</ul>
+
+    <nav id="page-list" class="page-list"><span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next</a></nav>
+
+<nav id="pagination">
+  
+  
+    <a href="/page/2/" class="alignright next">Nächste Seite</a>
+  
+  <div class="clearfix"></div>
+</nav></div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="text" name="q" results="0" placeholder="Suche">
+    <i class="icon-search"></i>
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/Builder/">Builder</a><small>1</small></li>
+  
+    <li><a href="/tags/JavaBean/">JavaBean</a><small>1</small></li>
+  
+    <li><a href="/tags/double/">double</a><small>1</small></li>
+  
+    <li><a href="/tags/equals/">equals</a><small>1</small></li>
+  
+    <li><a href="/tags/hashCode/">hashCode</a><small>1</small></li>
+  
+    <li><a href="/tags/intern/">intern</a><small>1</small></li>
+  
+    <li><a href="/tags/java/">java</a><small>17</small></li>
+  
+    <li><a href="/tags/javascript/">javascript</a><small>3</small></li>
+  
+    <li><a href="/tags/jvm/">jvm</a><small>1</small></li>
+  
+    <li><a href="/tags/map/">map</a><small>1</small></li>
+  
+    <li><a href="/tags/markdown/">markdown</a><small>1</small></li>
+  
+    <li><a href="/tags/set/">set</a><small>1</small></li>
+  
+    <li><a href="/tags/synchronized/">synchronized</a><small>1</small></li>
+  
+    <li><a href="/tags/textarea/">textarea</a><small>1</small></li>
+  
+    <li><a href="/tags/this逸出/">this逸出</a><small>1</small></li>
+  
+    <li><a href="/tags/volatile/">volatile</a><small>1</small></li>
+  
+    <li><a href="/tags/事件/">事件</a><small>1</small></li>
+  
+    <li><a href="/tags/列表/">列表</a><small>1</small></li>
+  
+    <li><a href="/tags/动态/">动态</a><small>1</small></li>
+  
+    <li><a href="/tags/发布/">发布</a><small>1</small></li>
+  
+    <li><a href="/tags/变量/">变量</a><small>1</small></li>
+  
+    <li><a href="/tags/垃圾收集器/">垃圾收集器</a><small>2</small></li>
+  
+    <li><a href="/tags/安全/">安全</a><small>1</small></li>
+  
+    <li><a href="/tags/并发/">并发</a><small>1</small></li>
+  
+    <li><a href="/tags/拆箱/">拆箱</a><small>1</small></li>
+  
+    <li><a href="/tags/指针/">指针</a><small>2</small></li>
+  
+    <li><a href="/tags/换行符/">换行符</a><small>1</small></li>
+  
+    <li><a href="/tags/构造函数/">构造函数</a><small>2</small></li>
+  
+    <li><a href="/tags/构造器/">构造器</a><small>1</small></li>
+  
+    <li><a href="/tags/正则表达式/">正则表达式</a><small>1</small></li>
+  
+    <li><a href="/tags/死锁/">死锁</a><small>1</small></li>
+  
+    <li><a href="/tags/比较大小/">比较大小</a><small>1</small></li>
+  
+    <li><a href="/tags/永久代/">永久代</a><small>1</small></li>
+  
+    <li><a href="/tags/环/">环</a><small>2</small></li>
+  
+    <li><a href="/tags/类加载/">类加载</a><small>1</small></li>
+  
+    <li><a href="/tags/线程池/">线程池</a><small>2</small></li>
+  
+    <li><a href="/tags/装箱/">装箱</a><small>1</small></li>
+  
+    <li><a href="/tags/转账/">转账</a><small>1</small></li>
+  
+    <li><a href="/tags/链表/">链表</a><small>2</small></li>
+  
+    <li><a href="/tags/队列/">队列</a><small>1</small></li>
+  
+    <li><a href="/tags/集合/">集合</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  <div class="trace-invest">
+    <span>
+        <a href="http://traceinvest.com" target="_blank">欢迎光临我的美股投资相关网站 :</br>traceinvest.com</a>
+    </span>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Neueste Artikel</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2017/05/05/ThreadPoolExecutor源码理解/">ThreadPoolExecutor源码理解</a>
+      </li>
+    
+      <li>
+        <a href="/2017/05/04/hello-world/">Hello World</a>
+      </li>
+    
+      <li>
+        <a href="/2017/03/31/Java集合学习/">Java集合学习</a>
+      </li>
+    
+      <li>
+        <a href="/2017/03/28/java覆盖equals和hashCode方法/">java覆盖equals和hashCode方法</a>
+      </li>
+    
+      <li>
+        <a href="/2017/03/27/java构造器/">java构造器</a>
+      </li>
+    
+      <li>
+        <a href="/2017/03/26/java构造函数this逸出/">java构造函数this逸出</a>
+      </li>
+    
+      <li>
+        <a href="/2017/03/25/java转账死锁问题/">java转账死锁问题</a>
+      </li>
+    
+      <li>
+        <a href="/2017/03/24/java类的加载过程/">java类的加载过程</a>
+      </li>
+    
+      <li>
+        <a href="/2017/03/24/java的intern方法/">java的intern方法</a>
+      </li>
+    
+      <li>
+        <a href="/2017/03/24/jvm垃圾收集器/">jvm垃圾收集器</a>
+      </li>
+    
+      <li>
+        <a href="/2017/03/24/java-线程池学习/">java 线程池学习</a>
+      </li>
+    
+      <li>
+        <a href="/2017/03/19/链表中环的入口节点/">链表中环的入口节点</a>
+      </li>
+    
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <div id="go-pg-top"><i class="icon-arrow-up"></i></div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2017 杏仁
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/page.js"></script>
+
+
+</body>
+
+</html>

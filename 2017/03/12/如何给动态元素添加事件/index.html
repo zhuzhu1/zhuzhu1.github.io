@@ -1,12 +1,386 @@
-extends base.jade
-block content
-    a(href="#{config.root}").read-more Read the entire novel
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>如何给动态元素添加事件 | 杏仁的博客</title>
+  <meta name="author" content="杏仁">
+  
+  <meta name="description" content="Java | Javascript | web | tools">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    article.article.clear
-        header.header
-          h1= page.title
-        != page.content
+  <meta property="og:title" content="如何给动态元素添加事件"/>
+  <meta property="og:site_name" content="杏仁的博客"/>
 
-    a(href="#{config.root}").read-more Read the entire novel
+  
+    <meta property="og:image" content="undefined"/>
+  
 
-    != partial("_partials/author.jade")
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="杏仁的博客" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script src="/js/jquery.min.js"></script>
+
+  
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45019001-1', 'topdna.org');
+  ga('send', 'pageview');
+</script>
+
+
+</head>
+
+
+<body>
+  <!--[if lte IE 8]> <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'> <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode"><img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0027_Simplified Chinese.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." style='margin-left:auto;margin-right:auto;display: block;'/></a></div> <![endif]-->
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">杏仁的博客</a></h1>
+  <h2><a href="/">我的学习笔记</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">首页</a></li>
+    
+      <li><a href="http://traceinvest.com">TraceInvest</a></li>
+    
+      <li><a href="/categories/essay/">随感</a></li>
+    
+      <li><a href="/categories/tech/">技术</a></li>
+    
+      <li><a href="/categories/investment/">理财</a></li>
+    
+      <li><a href="/categories/life/">生活</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <time datetime="2017-03-12T14:02:38.000Z"><a href="/2017/03/12/如何给动态元素添加事件/">2017-03-12</a></time>
+      
+      
+  
+    <h1 class="title">如何给动态元素添加事件</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>要给动态添加的元素添加事件，可以给其父元素添加事件。这样若是在冒泡事件下，点击事件由子元素传递到父元素，就会触发父元素上绑定的事件函数，在函数里做一下过滤，便可实现想要的功能。（在捕获事件里也是同样的道理）</p>
+<p>以下分三种事件举例。JavaScript事件有HEML事件、DOM0级事件和DOM2级事件。</p>
+<p>（1）HEML事件：</p>
+<p>如示例所示，当点击“添加”按钮添加元素后，点击新添加的元素也会在控制台看到日志。</p>
+<p>将printLog的调用直接写在html的元素上，这种添加事件的方法就是HTML事件。这种方法的缺点是html和JavaScript代码耦合性较大。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">onload</span>=<span class="string">"init()"</span>&gt;</span>  </div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"parent"</span> <span class="attr">class</span>=<span class="string">"parent"</span> <span class="attr">onclick</span>=<span class="string">"printLog(event)"</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"child"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"child"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>  </div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>  </div><div class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"add"</span>&gt;</span>添加<span class="tag">&lt;/<span class="name">button</span>&gt;</span>  </div><div class="line">  </div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript">  </span></div><div class="line">        <span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>)</span>&#123;  </div><div class="line">            <span class="comment">//当点击添加按钮时，添加一个child span  </span></div><div class="line">            <span class="keyword">var</span> addObj = <span class="built_in">document</span>.getElementById(<span class="string">"add"</span>);  </div><div class="line">            addObj.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;  </div><div class="line">                <span class="keyword">var</span> parentObj = <span class="built_in">document</span>.getElementById(<span class="string">"parent"</span>);  </div><div class="line">                <span class="keyword">var</span> childObj = <span class="built_in">document</span>.createElement(<span class="string">"span"</span>);  </div><div class="line">                childObj.setAttribute(<span class="string">'class'</span>,<span class="string">'child'</span>);  </div><div class="line">                parentObj.appendChild(childObj);  </div><div class="line">            &#125;  </div><div class="line">        &#125;  </div><div class="line">        <span class="comment">//点击child span时，打印一行日志  </span></div><div class="line">        <span class="function"><span class="keyword">function</span> <span class="title">printLog</span>(<span class="params">event</span>)</span>&#123;  </div><div class="line">            <span class="built_in">console</span>.log(<span class="string">"当前节点类名："</span>+event.currentTarget.className+<span class="string">",产生事件的节点类名："</span>+event.target.className);  </div><div class="line">        &#125;  </div><div class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span>  </div><div class="line">  </div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>(2)DOM0级事件：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">onload</span>=<span class="string">"init()"</span>&gt;</span>  </div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"parent"</span> <span class="attr">class</span>=<span class="string">"parent"</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"child"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"child"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>  </div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>  </div><div class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"add"</span>&gt;</span>添加<span class="tag">&lt;/<span class="name">button</span>&gt;</span>  </div><div class="line">  </div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript">  </span></div><div class="line">        <span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>)</span>&#123;  </div><div class="line">            <span class="keyword">var</span> addObj = <span class="built_in">document</span>.getElementById(<span class="string">"add"</span>);  </div><div class="line">            <span class="keyword">var</span> parentObj = <span class="built_in">document</span>.getElementById(<span class="string">"parent"</span>);  </div><div class="line">            <span class="comment">//DOM0级事件：当点击添加按钮时，添加一个child span  </span></div><div class="line">            addObj.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;  </div><div class="line">                <span class="keyword">var</span> childObj = <span class="built_in">document</span>.createElement(<span class="string">"span"</span>);  </div><div class="line">                childObj.setAttribute(<span class="string">'class'</span>,<span class="string">'child'</span>);  </div><div class="line">                parentObj.appendChild(childObj);  </div><div class="line">            &#125;  </div><div class="line">            <span class="comment">//DOM0级事件：点击child span时，打印一行日志  </span></div><div class="line">            parentObj.onclick = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;  </div><div class="line">                <span class="built_in">console</span>.log(<span class="string">"当前节点类名："</span>+event.currentTarget.className+<span class="string">",产生事件的节点类名："</span>+event.target.className);  </div><div class="line">            &#125;  </div><div class="line">            <span class="comment">//取消事件  </span></div><div class="line">            <span class="comment">// parentObj.onclick = null;  </span></div><div class="line">        &#125;  </div><div class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span>  </div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>(3)DOM2级事件：</p>
+<p>addEventListener(event, function, useCapture)</p>
+<p>removeEventListener(event, function, useCapture)</p>
+<p>IE事件处理程序调用的是如下函数，没有最后一个参数的原因是早期的IE浏览器只支持冒泡事件。</p>
+<p>attachEvent(event, function)</p>
+<p>detachEvent(event, function)</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">onload</span>=<span class="string">"init()"</span>&gt;</span>  </div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"parent"</span> <span class="attr">class</span>=<span class="string">"parent"</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"child"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"child"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>  </div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>  </div><div class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"add"</span>&gt;</span>添加<span class="tag">&lt;/<span class="name">button</span>&gt;</span>  </div><div class="line">  </div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript">  </span></div><div class="line">        <span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>)</span>&#123;  </div><div class="line">            <span class="keyword">var</span> addObj = <span class="built_in">document</span>.getElementById(<span class="string">"add"</span>);  </div><div class="line">            <span class="keyword">var</span> parentObj = <span class="built_in">document</span>.getElementById(<span class="string">"parent"</span>);  </div><div class="line">            <span class="comment">//DOM0级事件：当点击添加按钮时，添加一个child span  </span></div><div class="line">            addObj.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;  </div><div class="line">                <span class="keyword">var</span> childObj = <span class="built_in">document</span>.createElement(<span class="string">"span"</span>);  </div><div class="line">                childObj.setAttribute(<span class="string">'class'</span>,<span class="string">'child'</span>);  </div><div class="line">                parentObj.appendChild(childObj);  </div><div class="line">            &#125;  </div><div class="line">            <span class="comment">//DOM2级事件：false表示冒泡事件；true表示捕获事件  </span></div><div class="line">            parentObj.addEventListener(<span class="string">'click'</span>,printLog,<span class="literal">false</span>);  </div><div class="line">            <span class="comment">//删除事件  </span></div><div class="line">            <span class="comment">// parentObj.removeEventListener('click',printLog,false);  </span></div><div class="line">        &#125;  </div><div class="line">        <span class="comment">//点击child span时，打印一行日志  </span></div><div class="line">        <span class="function"><span class="keyword">function</span> <span class="title">printLog</span>(<span class="params">event</span>)</span>&#123;  </div><div class="line">            <span class="built_in">console</span>.log(<span class="string">"当前节点类名："</span>+event.currentTarget.className+<span class="string">",产生事件的节点类名："</span>+event.target.className);  </div><div class="line">        &#125;  </div><div class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span>  </div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>以上代码的效果图如下，后面两个元素是点击添加按钮后添加的。</p>
+<p><img src="http://omt5ar039.bkt.clouddn.com/images/event.png" alt="图片"></p>
+<p><strong>附：</strong>html代码里所用的css文件如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="selector-id">#parent</span>&#123;  </div><div class="line">    <span class="attribute">border</span>:<span class="number">1px</span> solid <span class="number">#876</span>;  </div><div class="line">    <span class="attribute">width</span>:<span class="number">300px</span>;  </div><div class="line">    <span class="attribute">height</span>:<span class="number">100px</span>;  </div><div class="line">&#125;  </div><div class="line"><span class="selector-class">.child</span>&#123;  </div><div class="line">    <span class="attribute">border</span>:<span class="number">1px</span> solid <span class="number">#954</span>;  </div><div class="line">    <span class="attribute">background-color</span>:<span class="number">#954</span>;  </div><div class="line">    <span class="attribute">width</span>:<span class="number">30px</span>;  </div><div class="line">    <span class="attribute">height</span>:<span class="number">30px</span>;  </div><div class="line">    <span class="attribute">display</span>:inline-block;  </div><div class="line">    <span class="attribute">margin</span>: <span class="number">5px</span> <span class="number">2px</span>;  </div><div class="line">&#125;  </div><div class="line"><span class="selector-class">.child</span><span class="selector-pseudo">:hover</span>&#123;  </div><div class="line">    <span class="attribute">border</span>:<span class="number">1px</span> solid <span class="number">#333</span>;  </div><div class="line">&#125;  </div><div class="line"><span class="selector-id">#add</span>&#123;  </div><div class="line">    <span class="attribute">margin-top</span>:<span class="number">10px</span>;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>注：</strong>上图中的前3个元素之间有多余的空格，即使margin设置为0也没有效果，这是很多浏览器的正常效果。给元素设置inline-block属性后就会出现此现象，解决办法之一如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"parent"</span> <span class="attr">class</span>=<span class="string">"parent"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"child"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="comment">&lt;!--</span></div><div class="line">--&gt;<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"child"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="comment">&lt;!--</span></div><div class="line">--&gt;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>在元素之间插入注释，或者直接写在同一行。</p>
+
+      
+    </div>
+    <footer>
+      
+
+        
+          <div class="alignleft post-nav">
+            <em>上一篇: </em><a href="/2017/03/12/Java队列与双端队列/">Java队列与双端队列</a>
+          </div>
+        
+        
+          <div class="alignright post-nav">
+            <em>下一篇: </em><a href="/2017/03/12/java-double比较大小/">java double比较大小</a>
+          </div>
+          <div class="clearfix"></div>
+        
+
+        
+          <div class="copyright">
+            
+              <span class="claim">版权声明：自由转载-非商用-无演绎-保持署名 @ Creative Commons BY-NC-ND 3.0</span>
+            
+            
+              <span class="from-link">
+                <em>本文链接地址:</em>
+                <a href="/2017/03/12/如何给动态元素添加事件/">
+                  http://yoursite.com/2017/03/12/如何给动态元素添加事件/
+                </a>
+              </span>
+            
+          </div>
+        
+        
+  
+  <div class="categories">
+    <a href="/categories/Javascript/">Javascript</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/javascript/">javascript</a>, <a href="/tags/事件/">事件</a>, <a href="/tags/动态/">动态</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+    
+    
+      <a class="addthis_button_sinaweibo_like"></a>
+    
+    
+      <a class="addthis_button_linkedin"></a>
+    
+    
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+<section id="comment">
+  <h1 class="title">Kommentare</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2017/03/12/如何给动态元素添加事件/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="text" name="q" results="0" placeholder="Suche">
+    <i class="icon-search"></i>
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/Builder/">Builder</a><small>1</small></li>
+  
+    <li><a href="/tags/JavaBean/">JavaBean</a><small>1</small></li>
+  
+    <li><a href="/tags/double/">double</a><small>1</small></li>
+  
+    <li><a href="/tags/equals/">equals</a><small>1</small></li>
+  
+    <li><a href="/tags/hashCode/">hashCode</a><small>1</small></li>
+  
+    <li><a href="/tags/intern/">intern</a><small>1</small></li>
+  
+    <li><a href="/tags/java/">java</a><small>17</small></li>
+  
+    <li><a href="/tags/javascript/">javascript</a><small>3</small></li>
+  
+    <li><a href="/tags/jvm/">jvm</a><small>1</small></li>
+  
+    <li><a href="/tags/map/">map</a><small>1</small></li>
+  
+    <li><a href="/tags/markdown/">markdown</a><small>1</small></li>
+  
+    <li><a href="/tags/set/">set</a><small>1</small></li>
+  
+    <li><a href="/tags/synchronized/">synchronized</a><small>1</small></li>
+  
+    <li><a href="/tags/textarea/">textarea</a><small>1</small></li>
+  
+    <li><a href="/tags/this逸出/">this逸出</a><small>1</small></li>
+  
+    <li><a href="/tags/volatile/">volatile</a><small>1</small></li>
+  
+    <li><a href="/tags/事件/">事件</a><small>1</small></li>
+  
+    <li><a href="/tags/列表/">列表</a><small>1</small></li>
+  
+    <li><a href="/tags/动态/">动态</a><small>1</small></li>
+  
+    <li><a href="/tags/发布/">发布</a><small>1</small></li>
+  
+    <li><a href="/tags/变量/">变量</a><small>1</small></li>
+  
+    <li><a href="/tags/垃圾收集器/">垃圾收集器</a><small>2</small></li>
+  
+    <li><a href="/tags/安全/">安全</a><small>1</small></li>
+  
+    <li><a href="/tags/并发/">并发</a><small>1</small></li>
+  
+    <li><a href="/tags/拆箱/">拆箱</a><small>1</small></li>
+  
+    <li><a href="/tags/指针/">指针</a><small>2</small></li>
+  
+    <li><a href="/tags/换行符/">换行符</a><small>1</small></li>
+  
+    <li><a href="/tags/构造函数/">构造函数</a><small>2</small></li>
+  
+    <li><a href="/tags/构造器/">构造器</a><small>1</small></li>
+  
+    <li><a href="/tags/正则表达式/">正则表达式</a><small>1</small></li>
+  
+    <li><a href="/tags/死锁/">死锁</a><small>1</small></li>
+  
+    <li><a href="/tags/比较大小/">比较大小</a><small>1</small></li>
+  
+    <li><a href="/tags/永久代/">永久代</a><small>1</small></li>
+  
+    <li><a href="/tags/环/">环</a><small>2</small></li>
+  
+    <li><a href="/tags/类加载/">类加载</a><small>1</small></li>
+  
+    <li><a href="/tags/线程池/">线程池</a><small>2</small></li>
+  
+    <li><a href="/tags/装箱/">装箱</a><small>1</small></li>
+  
+    <li><a href="/tags/转账/">转账</a><small>1</small></li>
+  
+    <li><a href="/tags/链表/">链表</a><small>2</small></li>
+  
+    <li><a href="/tags/队列/">队列</a><small>1</small></li>
+  
+    <li><a href="/tags/集合/">集合</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  <div class="trace-invest">
+    <span>
+        <a href="http://traceinvest.com" target="_blank">欢迎光临我的美股投资相关网站 :</br>traceinvest.com</a>
+    </span>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Neueste Artikel</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2017/05/05/ThreadPoolExecutor源码理解/">ThreadPoolExecutor源码理解</a>
+      </li>
+    
+      <li>
+        <a href="/2017/05/04/hello-world/">Hello World</a>
+      </li>
+    
+      <li>
+        <a href="/2017/03/31/Java集合学习/">Java集合学习</a>
+      </li>
+    
+      <li>
+        <a href="/2017/03/28/java覆盖equals和hashCode方法/">java覆盖equals和hashCode方法</a>
+      </li>
+    
+      <li>
+        <a href="/2017/03/27/java构造器/">java构造器</a>
+      </li>
+    
+      <li>
+        <a href="/2017/03/26/java构造函数this逸出/">java构造函数this逸出</a>
+      </li>
+    
+      <li>
+        <a href="/2017/03/25/java转账死锁问题/">java转账死锁问题</a>
+      </li>
+    
+      <li>
+        <a href="/2017/03/24/java类的加载过程/">java类的加载过程</a>
+      </li>
+    
+      <li>
+        <a href="/2017/03/24/java的intern方法/">java的intern方法</a>
+      </li>
+    
+      <li>
+        <a href="/2017/03/24/jvm垃圾收集器/">jvm垃圾收集器</a>
+      </li>
+    
+      <li>
+        <a href="/2017/03/24/java-线程池学习/">java 线程池学习</a>
+      </li>
+    
+      <li>
+        <a href="/2017/03/19/链表中环的入口节点/">链表中环的入口节点</a>
+      </li>
+    
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <div id="go-pg-top"><i class="icon-arrow-up"></i></div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2017 杏仁
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/page.js"></script>
+
+
+</body>
+
+</html>
