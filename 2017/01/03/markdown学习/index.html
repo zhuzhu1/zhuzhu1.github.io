@@ -1,0 +1,193 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Ben Wong,wenbinben@gmail.com"><title>markdown学习 · 杏仁的博客</title><meta name="description" content="markdown的学习笔记，包括斜体，粗体，标题，链接，表格，块引用等语法。
+markdown语法斜体在文字两边加上下划线_或星号*示例：
+_not_
+*not*
+呈现：notnot
+粗体在文字两边加上两个星号**示例：
+**not**
+呈现：not注：以上两个可以跨行使用。同时加粗和斜体示例：
+*"><meta name="keywords" content="Hexo,HTML,Ben,CSS,安卓,android,Linux,linuxdeepin"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title=""><a href="/">杏仁的博客</a></h3><div class="description"><p>Nothing lasts forever.</p></div></div></div><ul class="social-links"><li><a href="https://twitter.com/Ben_wenbin"><i class="fa fa-twitter"></i></a></li><li><a href="http://instagram.com/hwbinbenben"><i class="fa fa-instagram"></i></a></li><li><a href="/atom.xml"><i class="fa fa-rss"></i></a></li><li><a href="http://weibo.com/ben0036"><i class="fa fa-weibo"></i></a></li></ul><div class="footer"><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai</a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">首页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li><li><a href="/links">友链</a></li></div><div class="information"><div class="back_btn"><li><a onclick="window.history.go(-1)" class="fa fa-chevron-left"> </a></li></div><div class="avatar"><img src="https://secure.gravatar.com/avatar/e71df8021446fe9759a9928b1dd5c28d?s=180&amp;r=G&amp;d="></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>markdown学习</a></h3></div><div class="post-content"><p>markdown的学习笔记，包括斜体，粗体，标题，链接，表格，块引用等语法。<br><a id="more"></a></p>
+<h2 id="markdown语法"><a href="#markdown语法" class="headerlink" title="markdown语法"></a>markdown语法</h2><h3 id="斜体"><a href="#斜体" class="headerlink" title="斜体"></a>斜体</h3><p>在文字两边加上下划线_或星号*<br>示例：</p>
+<pre><code>_not_
+*not*
+</code></pre><p>呈现：<br><em>not</em><br><em>not</em></p>
+<h3 id="粗体"><a href="#粗体" class="headerlink" title="粗体"></a>粗体</h3><p>在文字两边加上两个星号**<br>示例：</p>
+<pre><code>**not**
+</code></pre><p>呈现：<br><strong>not</strong><br><strong>注：</strong>以上两个可以跨行使用。<br>同时加粗和斜体<br>示例：</p>
+<pre><code>**_not_**
+</code></pre><p>呈现：<br><strong><em>not</em></strong></p>
+<h3 id="删除线"><a href="#删除线" class="headerlink" title="删除线"></a>删除线</h3><p>示例：</p>
+<pre><code>~~not~~  
+</code></pre><p>呈现：<br><del>not</del></p>
+<hr>
+<h3 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h3><p>在文字左边加上#，几级标题前面就是几个#。<br>    一级标题#not<br>    三级标题###not  </p>
+<p><strong>注：</strong>不能给标题加粗，但是可以用斜体来强调其中的某些单词。</p>
+<hr>
+<h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><p>行内连接:<code>[]()</code><br>示例：  </p>
+<pre><code>[Visit GitHub!](www.github.com)
+</code></pre><p>呈现：<br><a href="www.github.com">Visit GitHub!</a><br>悬停在链接上，有一个工具提示：</p>
+<pre><code>[Upstage](https://github.com/upstage/ &quot;Visit Upstage!&quot;)
+</code></pre><p>参考连接<br>另一种链接类型称为参考链接。顾名思义，链接实际上是引用文档中的另一个位置。参考链接风格的优点是到同一地点的多个链接仅需要被更新一次。<br>示例：</p>
+<pre><code>Here&apos;s [a link to something else][another place].
+Here&apos;s [yet another link][another-link].
+And now back to [the first link][another place].
+
+[another place]: www.github.com
+[another-link]: www.google.com
+</code></pre><h3 id="命名锚点"><a href="#命名锚点" class="headerlink" title="命名锚点"></a>命名锚点</h3><p>命名锚点使您能够跳到同一页面上的指定锚点。<br>示例：</p>
+<pre><code>#### Table of Contents
+  * [Chapter 1](#chapter-1)
+  * [Chapter 2](#chapter-2)
+  * [Chapter 3](#chapter-3)
+将会跳转到如下章节:
+#### Chapter 1 &lt;a id=&quot;chapter-1&quot;&gt;&lt;/a&gt;
+Content for chapter one.
+#### Chapter 2 &lt;a id=&quot;chapter-2&quot;&gt;&lt;/a&gt;
+Content for chapter one.
+#### Chapter 3 &lt;a id=&quot;chapter-3&quot;&gt;&lt;/a&gt;
+Content for chapter one.
+</code></pre><p>呈现：</p>
+<h4 id="Table-of-Contents"><a href="#Table-of-Contents" class="headerlink" title="Table of Contents"></a>Table of Contents</h4><ul>
+<li><a href="#chapter-1">Chapter 1</a></li>
+<li><a href="#chapter-2">Chapter 2</a></li>
+<li><a href="#chapter-3">Chapter 3</a><br>将会跳转到如下章节:<h4 id="Chapter-1"><a href="#Chapter-1" class="headerlink" title="Chapter 1 "></a>Chapter 1 <a id="chapter-1"></a></h4>Content for chapter one.<h4 id="Chapter-2"><a href="#Chapter-2" class="headerlink" title="Chapter 2 "></a>Chapter 2 <a id="chapter-2"></a></h4>Content for chapter one.<h4 id="Chapter-3"><a href="#Chapter-3" class="headerlink" title="Chapter 3 "></a>Chapter 3 <a id="chapter-3"></a></h4>Content for chapter one.</li>
+</ul>
+<h3 id="图像"><a href="#图像" class="headerlink" title="图像"></a>图像</h3><p>如果你知道如何在Markdown中创建链接，你也可以创建图像。 语法几乎相同。<br>不同之处在于，图像以惊叹号(!)开头。<br>示例：</p>
+<pre><code>![示例图片](http://icoco.qiniudn.com/image/hexo/09090115252c6bc118f5d9c215.gif &quot;这个是Tooltips&quot;)
+</code></pre><p>呈现：<br><img src="http://icoco.qiniudn.com/image/hexo/09090115252c6bc118f5d9c215.gif" alt="示例图片" title="这个是Tooltips"></p>
+<hr>
+<h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><p>引用是一个被特别格式化以引起读者注意的句子或段落。<br>示例：</p>
+<pre><code>&gt;not
+</code></pre><p>呈现：</p>
+<blockquote>
+<p>not</p>
+</blockquote>
+<p>您还可以在块引用的每一行上插入一个插入符号。 如果您的引用跨越多个段落，这是特别有用。请注意，即使空行必须包含插入符号。 这确保整个块引用组合在一起。</p>
+<pre><code>&gt; His words seemed to have struck some deep chord in his own nature. Had he spoken
+of himself, of himself as he was or wished to be? Stephen watched his face for some
+moments in silence. A cold sadness was there. He had spoken of himself, of his own
+loneliness which he feared.
+&gt;
+&gt; —Of whom are you speaking? Stephen asked at length.
+&gt;
+&gt; Cranly did not answer.
+</code></pre><p>块引用也可以嵌套，例如：</p>
+<pre><code>&gt; Donec massa lacus, ultricies a ullamcorper in, fermentum sed augue.
+Nunc augue augue, aliquam non hendrerit ac, commodo vel nisi.
+&gt;&gt; Sed adipiscing elit vitae augue consectetur a gravida nunc vehicula. Donec auctor
+odio non est accumsan facilisis. Aliquam id turpis in dolor tincidunt mollis ac eu diam.
+</code></pre><p>呈现：  </p>
+<blockquote>
+<p>Donec massa lacus, ultricies a ullamcorper in, fermentum sed augue.<br>Nunc augue augue, aliquam non hendrerit ac, commodo vel nisi.</p>
+<blockquote>
+<p>Sed adipiscing elit vitae augue consectetur a gravida nunc vehicula. Donec auctor<br>odio non est accumsan facilisis. Aliquam id turpis in dolor tincidunt mollis ac eu diam.</p>
+</blockquote>
+</blockquote>
+<hr>
+<h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><p>无序列表<br>示例：  </p>
+<pre><code>* Milk  
+* Eggs  
+* Salmon   
+* Butter  
+</code></pre><p>呈现：</p>
+<ul>
+<li>Milk</li>
+<li>Eggs</li>
+<li>Salmon</li>
+<li>Butter</li>
+</ul>
+<p>您可以使用以下任何符号来表示每个列表项的项目符号：<br>示例：  </p>
+<pre><code>* valid bullet
+- valid bullet
++ valid bullet
+</code></pre><p>有序列表<br>示例：  </p>
+<pre><code>1. Crack three eggs over a bowl
+2. Pour a gallon of milk into the bowl
+3. Rub the salmon vigorously with butter
+4. Drop the salmon into the egg-milk bowl
+</code></pre><p>呈现：  </p>
+<ol>
+<li>Crack three eggs over a bowl</li>
+<li>Pour a gallon of milk into the bowl</li>
+<li>Rub the salmon vigorously with butter</li>
+<li>Drop the salmon into the egg-milk bowl</li>
+</ol>
+<p><strong>提示：</strong>如果每个数字都只是使用1.表示，Markdown将自动编号每个项目。<br>有时，您可能会发现需要将一个列表嵌套在另一个列表中。 不要恐惧，因为Markdown语法是完全一样的。 </p>
+<p>你需要做的是记住缩进每个星号一个空格多于前面的项目。</p>
+<p>假设您想创建一个需要一些附加上下文（但不是另一个列表）的项目符号列表。您的段落必须在项目符号下面的所有行上开始，并且必须缩进至少一个空格。</p>
+<hr>
+<h3 id="段落"><a href="#段落" class="headerlink" title="段落"></a>段落</h3><p>每个段落后面有一个空行，或者在段落的结尾加上两个空格。</p>
+<hr>
+<h3 id="类似html的hr标签，在markdown中的表示如下："><a href="#类似html的hr标签，在markdown中的表示如下：" class="headerlink" title="类似html的hr标签，在markdown中的表示如下："></a>类似html的hr标签，在markdown中的表示如下：</h3><pre><code>___：三个连续的下划线
+---：三个连续的破折号
+***：三个连续的星号
+</code></pre><hr>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>在文字两边加上`，或者通过至少四个空格缩进几行代码。<br>使用```来标示多行代码。<br>代码的语法高亮，直接在```后面加上所使用的语言的扩展名，例如js：<br>    ```js<br>    function()<br>    {<br>    }<br>    ```</p>
+<p>呈现：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>提示：</strong>要使语法高亮起作用，需要安装并启用Highlight插件。 它反过来利用一个jQuery插件，所以jquery需要加载到你的主题。</p>
+<hr>
+<h3 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h3><p>通过在每个单元格之间添加管道作为分隔符，并通过在标题下面添加一行破折号（也用条形分隔）来创建表。 注意，管道不需要垂直对准。<br><strong>注：</strong>切记表格要与上面的文本内容空一行。否则解析不出来.</p>
+<p>示例：<br>    | Option | Description |<br>    | —— | ———– |<br>    | data   | path to data files to supply the data that will be passed into templates. |<br>    | engine | engine to be used for processing templates. Handlebars is the default. |<br>    | ext    | extension to be used for dest files. |</p>
+<p>呈现：</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>path to data files to supply the data that will be passed into templates.</td>
+</tr>
+<tr>
+<td>engine</td>
+<td>engine to be used for processing templates. Handlebars is the default.</td>
+</tr>
+<tr>
+<td>ext</td>
+<td>extension to be used for dest files.</td>
+</tr>
+</tbody>
+</table>
+<p>在任何标题下面的短划线右侧添加冒号将会右对齐该列的文本。<br>示例：<br>    | Option | Description |<br>    | ——:| ———–:|<br>    | data   | path to data files to supply the data that will be passed into templates. |<br>    | engine | engine to be used for processing templates. Handlebars is the default. |<br>    | ext    | extension to be used for dest files. |</p>
+<p>呈现：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">Option</th>
+<th style="text-align:right">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">data</td>
+<td style="text-align:right">path to data files to supply the data that will be passed into templates.</td>
+</tr>
+<tr>
+<td style="text-align:right">engine</td>
+<td style="text-align:right">engine to be used for processing templates. Handlebars is the default.</td>
+</tr>
+<tr>
+<td style="text-align:right">ext</td>
+<td style="text-align:right">extension to be used for dest files.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="转义字符"><a href="#转义字符" class="headerlink" title="转义字符"></a>转义字符</h3><pre><code>Markdown中的转义字符为\，转义的有：
+\\ 反斜杠
+\` 反引号
+\* 星号
+\_ 下划线
+\{\} 大括号
+\[\] 中括号
+\(\) 小括号
+\# 井号
+\+ 加号
+\- 减号
+\. 英文句号
+\! 感叹号
+</code></pre><h3 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h3><p><a href="http://www.markdowntutorial.com/" target="_blank" rel="external">markdown tutorial</a><br><a href="https://learn.getgrav.org/content/markdown" target="_blank" rel="external">markdown syntax</a><br><a href="http://mclspace.com/2014/10/28/markdown-intro/" target="_blank" rel="external">MarkDown 简明语法</a></p>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2017-01-03</span><i class="fa fa-tag"></i><a href="/tags/markdown/" title="markdown" class="tag">markdown </a></div></div></div></div><div class="share"><div class="evernote"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></div><div class="weibo"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></div><div class="twitter"><a href="http://twitter.com/home?status=,http://yoursite.com/2017/01/03/markdown学习/,杏仁的博客,markdown学习,;" class="fa fa-twitter"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a role="navigation" href="/2017/01/05/Java的安全初始化/" title="Java的安全初始化" class="btn">上一篇</a></li><li class="next pagbuttons"><a role="navigation" href="/2017/01/02/javascript变量/" title="javascript变量" class="btn">下一篇</a></li></ul></div></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>
