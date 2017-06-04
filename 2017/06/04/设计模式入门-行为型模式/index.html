@@ -19,8 +19,17 @@
 <p>提供一种方法顺序访问一个聚合对象中的各个元素，而又不暴露其内部的表示。</p>
 </blockquote>
 <p>把游走的任务放在迭代器上，而不是聚合上，这样简化了聚合的接口和实现，也让责任各得其所。<br>每一个具体聚合都要负责实例化一个具体迭代器，此迭代器能够遍历对象集合。<br>例如，早餐类使用ArrayList存储数据，午餐类使用数组存储数据，当招待员打印这两个菜单的时候，需要写两个for循环，如果使用迭代器模式封装遍历，招待员只需要一种遍历方法。</p>
-<h3 id="责任链模式"><a href="#责任链模式" class="headerlink" title="责任链模式"></a>责任链模式</h3><h3 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h3><h3 id="备忘录模式"><a href="#备忘录模式" class="headerlink" title="备忘录模式"></a>备忘录模式</h3><h3 id="状态模式"><a href="#状态模式" class="headerlink" title="状态模式"></a>状态模式</h3><blockquote>
+<h3 id="责任链模式"><a href="#责任链模式" class="headerlink" title="责任链模式"></a>责任链模式</h3><p>链中的每个对象扮演处理器，并且有一个后继对象，如果它可以处理请求，就进行处理；否则把请求转发给后继者。</p>
+<h3 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h3><h3 id="备忘录模式"><a href="#备忘录模式" class="headerlink" title="备忘录模式"></a>备忘录模式</h3><h3 id="状态模式"><a href="#状态模式" class="headerlink" title="状态模式"></a>状态模式</h3><blockquote>
 <p>状态模式允许对象在内部状态改变时改变它的行为，对象看起来好像修改了它的类。</p>
 </blockquote>
-<h3 id="访问者模式"><a href="#访问者模式" class="headerlink" title="访问者模式"></a>访问者模式</h3><h3 id="中介者模式"><a href="#中介者模式" class="headerlink" title="中介者模式"></a>中介者模式</h3><h3 id="解释器模式"><a href="#解释器模式" class="headerlink" title="解释器模式"></a>解释器模式</h3><p><strong>参考</strong><br>《Head First设计模式》</p>
+<h3 id="访问者模式"><a href="#访问者模式" class="headerlink" title="访问者模式"></a>访问者模式</h3><h3 id="中介者模式"><a href="#中介者模式" class="headerlink" title="中介者模式"></a>中介者模式</h3><p>优点：</p>
+<ol>
+<li>通过将对象彼此解耦，可以增加对象的复用性。</li>
+<li>通过将控制逻辑集中，可以简化系统维护。</li>
+<li>可以让对象之间所传递的消息变得简单而且大幅减少。</li>
+</ol>
+<p>用途：<br>中介者常常被用来协调相关的GUI组件。</p>
+<p>缺点：<br>中介者模式的缺点是，如果设计不当，中介者对象本身会变得过于复杂。</p>
+<h3 id="解释器模式"><a href="#解释器模式" class="headerlink" title="解释器模式"></a>解释器模式</h3><p><strong>参考</strong><br>《Head First设计模式》</p>
 </div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2017-06-04</span><i class="fa fa-tag"></i><a href="/categories/Java/" title="Java" class="tag">Java </a><a href="/tags/java/" title="java" class="tag">java </a><a href="/tags/design-pattern/" title="design pattern" class="tag">design pattern </a></div></div></div></div><div class="share"><div class="evernote"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></div><div class="weibo"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></div><div class="twitter"><a href="http://twitter.com/home?status=,http://yoursite.com/2017/06/04/设计模式入门-行为型模式/,杏仁的博客,设计模式入门_行为型模式,;" class="fa fa-twitter"></a></div></div><div class="pagination"><ul class="clearfix"><li class="next pagbuttons"><a role="navigation" href="/2017/06/04/设计模式入门-结构型模式/" title="设计模式入门_结构型模式" class="btn">下一篇</a></li></ul></div></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>
