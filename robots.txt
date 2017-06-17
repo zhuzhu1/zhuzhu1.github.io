@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Allow: /archives/
+Allow: /categories/
+Allow: /tags/ 
+
+Sitemap: https://zhuzhu1.github.io/sitemap.xml
+Sitemap: https://zhuzhu1.github.io/baidusitemap.xml
