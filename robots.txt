@@ -4,5 +4,5 @@ Allow: /archives/
 Allow: /categories/
 Allow: /tags/ 
 
-Sitemap: https://zhuzhu1.github.io/sitemap.xml
-Sitemap: https://zhuzhu1.github.io/baidusitemap.xml
+Sitemap: http://zhuzhucs.com/sitemap.xml
+Sitemap: http://zhuzhucs.com/baidusitemap.xml
