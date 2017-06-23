@@ -3,10 +3,53 @@
 
 
     
+  <url>
+    <loc>http://zhuzhucs.com/2017/06/23/Homebrew%E7%9A%84%E4%BD%BF%E7%94%A8-Mac/</loc>
+    <lastmod>2017-06-23T12:26:59.000Z</lastmod>
+    <data>
+        <display>
+        <title>Homebrew的使用 Mac</title>
+        <pubTime>2017-06-23T11:41:39.000Z</pubTime>
+        
+        <tag>Homebrew</tag>
+         
+        <tag>Mac</tag>
+         
+         
+           
+             
+              <breadCrumb title="Tools" url="http://zhuzhucs.com/categories/Tools/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://zhuzhucs.com/2017/06/20/%E6%9E%84%E5%BB%BASpring-Web%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/</loc>
+    <lastmod>2017-06-20T13:58:13.000Z</lastmod>
+    <data>
+        <display>
+        <title>构建Spring Web应用程序</title>
+        <pubTime>2017-06-20T13:57:55.000Z</pubTime>
+        
+        <tag>java</tag>
+         
+        <tag>Spring</tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="http://zhuzhucs.com/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
     
   <url>
     <loc>http://zhuzhucs.com/2017/06/06/Spring%E2%80%94%E2%80%94%E8%A3%85%E9%85%8DBean/</loc>
-    <lastmod>2017-06-18T06:27:58.000Z</lastmod>
+    <lastmod>2017-06-20T13:53:04.000Z</lastmod>
     <data>
         <display>
         <title>Spring——装配Bean</title>
@@ -25,6 +68,7 @@
     </data>
     </url>
 
+    
     
     
     
@@ -214,9 +258,9 @@
         
         <tag>java</tag>
          
-        <tag>Thread</tag>
-         
         <tag>Task</tag>
+         
+        <tag>Thread</tag>
          
          
            
@@ -837,9 +881,9 @@
         <title>Java正则表达式（下）</title>
         <pubTime>2017-03-14T14:39:33.000Z</pubTime>
         
-        <tag>regular expression</tag>
-         
         <tag>Java</tag>
+         
+        <tag>regular expression</tag>
          
          
            
