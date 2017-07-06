@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://zhuzhucs.com/2017/07/04/Redis%E5%AD%A6%E4%B9%A0/</loc>
+    
+    <lastmod>2017-07-05T13:58:07.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://zhuzhucs.com/2017/03/16/vim%E5%85%A5%E9%97%A8/</loc>
+    
+    <lastmod>2017-07-01T13:51:36.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://zhuzhucs.com/2017/06/23/Homebrew%E7%9A%84%E4%BD%BF%E7%94%A8-Mac/</loc>
     
     <lastmod>2017-06-23T12:26:59.000Z</lastmod>
@@ -278,13 +292,6 @@
     <loc>http://zhuzhucs.com/2016/11/02/hello-world/</loc>
     
     <lastmod>2017-05-12T15:28:50.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://zhuzhucs.com/2017/03/16/vim%E5%85%A5%E9%97%A8/</loc>
-    
-    <lastmod>2017-05-07T09:34:54.000Z</lastmod>
     
   </url>
   

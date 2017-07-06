@@ -4,6 +4,43 @@
 
     
   <url>
+    <loc>http://zhuzhucs.com/2017/07/04/Redis%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2017-07-05T13:58:07.000Z</lastmod>
+    <data>
+        <display>
+        <title>vim入门</title>
+        <pubTime>2017-07-04T11:31:20.000Z</pubTime>
+        
+        <tag>redis</tag>
+         
+         
+           
+             
+              <breadCrumb title="Tools" url="http://zhuzhucs.com/categories/Tools/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://zhuzhucs.com/2017/03/16/vim%E5%85%A5%E9%97%A8/</loc>
+    <lastmod>2017-07-01T13:51:36.000Z</lastmod>
+    <data>
+        <display>
+        <title>vim入门</title>
+        <pubTime>2017-03-16T11:49:20.000Z</pubTime>
+        
+        <tag>vim</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://zhuzhucs.com/2017/06/23/Homebrew%E7%9A%84%E4%BD%BF%E7%94%A8-Mac/</loc>
     <lastmod>2017-06-23T12:26:59.000Z</lastmod>
     <data>
@@ -825,23 +862,6 @@
         <title>Hello World</title>
         <pubTime>2016-11-02T12:35:41.000Z</pubTime>
         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://zhuzhucs.com/2017/03/16/vim%E5%85%A5%E9%97%A8/</loc>
-    <lastmod>2017-05-07T09:34:54.000Z</lastmod>
-    <data>
-        <display>
-        <title>vim入门</title>
-        <pubTime>2017-03-16T11:49:20.000Z</pubTime>
-        
-        <tag>vim</tag>
-         
          
            
         </display>
