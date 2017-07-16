@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>http://zhuzhucs.com/2017/07/04/Redis%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2017-07-16T13:24:36.000Z</lastmod>
+    <data>
+        <display>
+        <title>Redis学习</title>
+        <pubTime>2017-07-04T11:31:20.000Z</pubTime>
+        
+        <tag>redis</tag>
+         
+         
+           
+             
+              <breadCrumb title="Tools" url="http://zhuzhucs.com/categories/Tools/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://zhuzhucs.com/2017/07/12/%E6%88%91%E7%9A%84%E5%AF%86%E7%A0%81%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/</loc>
     <lastmod>2017-07-12T13:09:10.000Z</lastmod>
     <data>
@@ -19,26 +39,6 @@
            
              
               <breadCrumb title="java" url="http://zhuzhucs.com/categories/java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://zhuzhucs.com/2017/07/04/Redis%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2017-07-09T11:24:43.000Z</lastmod>
-    <data>
-        <display>
-        <title>Redis学习</title>
-        <pubTime>2017-07-04T11:31:20.000Z</pubTime>
-        
-        <tag>redis</tag>
-         
-         
-           
-             
-              <breadCrumb title="Tools" url="http://zhuzhucs.com/categories/Tools/"/>
           
         </display>
     </data>
