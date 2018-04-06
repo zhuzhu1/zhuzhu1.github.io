@@ -1,34 +1,19 @@
-extends partial/layout
-
-include mixins
-
-block site_title
-    != page.title + " · " + config.title
-
-block description
-    - var desc = page.desc || strip_html(page.content).replace(/^\s*/, '').replace(/\s*$/, '').substring(0, 150);
-    meta(name="description", content=desc)
-
-block content
-  .autopagerize_page_element: .content: .post-page
-    include mixins
-    +make_post(page, true)
-    .share
-      .evernote
-        a.fa.fa-bookmark(href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title);}})();", ref="nofollow", target="_blank")
-      .weibo
-        a.fa.fa-weibo(href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&title=',e(d.title),'&appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));")
-      .twitter
-        a.fa.fa-twitter(href=url_for("http://twitter.com/home?status="+","+config.url+"/"+page.path+","+config.title+","+page.title+",;"))
-    - var prev = page.prev ? page.prev.path : false;
-    - var next = page.next ? page.next.path : false;
-    .pagination
-      ul.clearfix
-        if prev
-          li.pre.pagbuttons
-            a.btn(role="navigation",href=url_for(prev), title=page.prev.title)!= __('prev_post')
-        if next
-          li.next.pagbuttons
-            a.btn(role="navigation",href=url_for(next), title=page.next.title)!= __('next_post')
-    if page.comments
-        include partial/comments
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="杏仁"><title>电商初识 · 杏仁的博客</title><meta name="description" content="最近在看黄岩的《我看电商》，他从事零售及电子商务30多年，带领团队创建了淘宝商城，即现在的天猫。书中讲述了他的一些经历和看法，值得我们学习和思考，推荐大家也去看看。
+电商模式买卖模式：经营者是零售企业，挣的是商品买和卖之间的差价。它追求的是对商品的把控，是对商品从生产采购到最后消费者消费的整个环节中"><meta name="keywords" content="Hexo,HTML,CSS,Java,Linux"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title=""><a href="/">杏仁的博客</a></h3><div class="description"><p>Java | Javascript | Web | tools</p></div></div></div><ul class="social-links"></ul><div class="footer"><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">首页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li><li><a href="/links">友链</a></li></div><div class="information"><div class="back_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li></div><div class="avatar"><img src="http://omt5ar039.bkt.clouddn.com/IMG_0009.jpg"></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>电商初识</a></h3></div><div class="post-content"><p>最近在看黄岩的《我看电商》，他从事零售及电子商务30多年，带领团队创建了淘宝商城，即现在的天猫。书中讲述了他的一些经历和看法，值得我们学习和思考，推荐大家也去看看。</p>
+<h3 id="电商模式"><a href="#电商模式" class="headerlink" title="电商模式"></a>电商模式</h3><h4 id="买卖模式："><a href="#买卖模式：" class="headerlink" title="买卖模式："></a>买卖模式：</h4><p>经营者是零售企业，挣的是商品买和卖之间的差价。它追求的是对商品的把控，是对商品从生产采购到最后消费者消费的整个环节中，争取效益的最大化。这就考验企业对于商品、库存的把控力，通过经营的能力和运作效率的提升赚取零售利润。买卖模式的零售其实就是两个字<strong>效率</strong>。<br>买卖式零售最核心的人才在于其买手团队，需要对市场趋势，对消费者的购物爱好有前瞻性的判断。<br>沃尔玛、家乐福、京东（后来也宣布开设平台，通过销售扣点的方式提升交易额）、当当</p>
+<h4 id="平台模式："><a href="#平台模式：" class="headerlink" title="平台模式："></a>平台模式：</h4><p>经营者不对商品负责，只提供买卖交易的环境，例如传统意义上的集市、农贸市场、批发市场。<br>平台靠流量赚钱，平台经营者通过收取租金，销售扣点，收取广告费等方式实现其经营利润。<br>淘宝：电商房地产<br>天猫：将交易提成作为天猫收入的主要来源，交易提出的比重是按照类目逐一确定的，不同商品类目的佣金比重不等。</p>
+<h3 id="电商企业的线下拓展"><a href="#电商企业的线下拓展" class="headerlink" title="电商企业的线下拓展"></a>电商企业的线下拓展</h3><p>线上线下是一个双行线，楼下的人上不来，不等于说楼上的人就能很轻松地下去。<br>线上品牌线下开店面临五大问题：<br>1.选址，要考虑到不同的零售业态，以及能够承受的租金压力。<br>2.用户商圈，通常把线下商圈大致分为：核心商圈、辐射商圈、边缘商圈、轨道商圈。<br>3.实体连锁管理<br>4.营销手段和营销投入<br>5.线下比线上的经营环境更复杂，例如各种执照、税务、交通、卫生、防疫问题，还会有天气等因素的影响。</p>
+<p>线上到线下的切入点：<br>开体验店</p>
+<h3 id="传统企业触电之路"><a href="#传统企业触电之路" class="headerlink" title="传统企业触电之路"></a>传统企业触电之路</h3><p>线下的传统企业在进行电商化时必须有归零心态，对于传统的电商化，作者给了几点建议：<br>1.借道<br>通过借助现有成熟的网络平台，传统企业能够集中精力做营销、服务、物流配送。<br>2.收购<br>国美收购库巴，苏宁收购红孩子，都是通过收购一家已具规模的电商公司而进入这个行业的。<br>3.新业态、新公司运作。</p>
+<h3 id="一些概念理解"><a href="#一些概念理解" class="headerlink" title="一些概念理解"></a>一些概念理解</h3><p><strong>B2B</strong>: business-to-business<br>指的是企业间通过电子商务的方式进行交易<br><a href="https://baike.baidu.com/item/B2B" target="_blank" rel="external">https://baike.baidu.com/item/B2B</a><br><strong>B2C</strong>: business-to-consumer<br>向最终用户销售产品或提供服务的企业。<br>这种形式的电子商务一般以网络零售业为主，主要借助于Internet开展在线销售活动。<br>例如亚马逊、天猫、京东、凡客<br><strong>C2C</strong>: consumer-to-consumer<br>是个人与个人之间的电子商务<br>例如eBay、淘宝、易趣网<br><a href="https://baike.baidu.com/item/C2C" target="_blank" rel="external">https://baike.baidu.com/item/C2C</a><br><strong>O2O</strong>: online-to-offline<br>是指将线下的商务机会与互联网结合，让互联网成为线下交易的平台。<br>例如口碑、美团、大众点评、百度糯米</p>
+<h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><p>《我看电商》</p>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2018-04-05</span><i class="fa fa-tag"></i><a class="tag" href="/categories/互联网/" title="互联网">互联网 </a><a class="tag" href="/tags/互联网/" title="互联网">互联网 </a><a class="tag" href="/tags/零售/" title="零售">零售 </a><a class="tag" href="/tags/电商/" title="电商">电商 </a></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" href="http://twitter.com/home?status=,http://zhuzhucs.com/2018/04/05/电商初识/,杏仁的博客,电商初识,;"></a></div></div><div class="pagination"><ul class="clearfix"><li class="next pagbuttons"><a class="btn" role="navigation" href="/2017/07/12/我的密码管理工具/" title="我的密码管理工具">下一篇</a></li></ul></div><a id="comments"></a><div id="vcomments" style="margin:0 30px;"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js?v=undefined"></script><script>var valine = new Valine({
+  el:'#vcomments',
+  notify:false || false, 
+  verify:false|| false, 
+  app_id:'kPrvoe1sT8i8q0ziB1KqWlCt-gzGzoHsz',
+  app_key:'a3xppHjKmC3F1hx16o0pqlfV',
+  placeholder:'Just go go',
+  path: window.location.pathname,
+  avatar:'mm'
+})</script></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>

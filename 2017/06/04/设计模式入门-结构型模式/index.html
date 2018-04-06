@@ -1,34 +1,42 @@
-extends partial/layout
-
-include mixins
-
-block site_title
-    != page.title + " · " + config.title
-
-block description
-    - var desc = page.desc || strip_html(page.content).replace(/^\s*/, '').replace(/\s*$/, '').substring(0, 150);
-    meta(name="description", content=desc)
-
-block content
-  .autopagerize_page_element: .content: .post-page
-    include mixins
-    +make_post(page, true)
-    .share
-      .evernote
-        a.fa.fa-bookmark(href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title);}})();", ref="nofollow", target="_blank")
-      .weibo
-        a.fa.fa-weibo(href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&title=',e(d.title),'&appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));")
-      .twitter
-        a.fa.fa-twitter(href=url_for("http://twitter.com/home?status="+","+config.url+"/"+page.path+","+config.title+","+page.title+",;"))
-    - var prev = page.prev ? page.prev.path : false;
-    - var next = page.next ? page.next.path : false;
-    .pagination
-      ul.clearfix
-        if prev
-          li.pre.pagbuttons
-            a.btn(role="navigation",href=url_for(prev), title=page.prev.title)!= __('prev_post')
-        if next
-          li.next.pagbuttons
-            a.btn(role="navigation",href=url_for(next), title=page.next.title)!= __('next_post')
-    if page.comments
-        include partial/comments
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="杏仁"><title>设计模式入门_结构型模式 · 杏仁的博客</title><meta name="description" content="总体来说设计模式分为三大类：创建型模式，共五种：工厂方法模式、抽象工厂模式、单例模式、建造者模式、原型模式。结构型模式，共七种：适配器模式、装饰器模式、代理模式、外观模式、桥接模式、组合模式、享元模式。行为型模式，共十一种：策略模式、模板方法模式、观察者模式、迭代子模式、责任链模式、命令模式、备忘录"><meta name="keywords" content="Hexo,HTML,CSS,Java,Linux"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title=""><a href="/">杏仁的博客</a></h3><div class="description"><p>Java | Javascript | Web | tools</p></div></div></div><ul class="social-links"></ul><div class="footer"><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">首页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li><li><a href="/links">友链</a></li></div><div class="information"><div class="back_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li></div><div class="avatar"><img src="http://omt5ar039.bkt.clouddn.com/IMG_0009.jpg"></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>设计模式入门_结构型模式</a></h3></div><div class="post-content"><p>总体来说设计模式分为三大类：<br><strong>创建型模式</strong>，共五种：工厂方法模式、抽象工厂模式、单例模式、建造者模式、原型模式。<br><strong>结构型模式</strong>，共七种：适配器模式、装饰器模式、代理模式、外观模式、桥接模式、组合模式、享元模式。<br><strong>行为型模式</strong>，共十一种：策略模式、模板方法模式、观察者模式、迭代子模式、责任链模式、命令模式、备忘录模式、状态模式、访问者模式、中介者模式、解释器模式。</p>
+<h3 id="适配器模式和外观模式"><a href="#适配器模式和外观模式" class="headerlink" title="适配器模式和外观模式"></a>适配器模式和外观模式</h3><p><strong>适配器模式</strong></p>
+<blockquote>
+<p>适配器模式将一个类的接口，转换成客户期望的另一个接口。适配器模式让原本接口不兼容的类可以合作无间。</p>
+</blockquote>
+<p>例如插头适配器，OO适配器和真实世界的适配器扮演着同样的角色：将一个接口转换成另一个接口，以符合客户的期望。目的是让他们的接口看起来不像自己而像别的东西。<br>现在，假设缺少鸭子对象，想用一些火鸡对象来冒充（鸭子和火鸡类见《Head First设计模式》适配器章节），适配器代码如下：<br><img src="http://omt5ar039.bkt.clouddn.com/adapter.png" alt=""><br><strong>外观模式</strong></p>
+<blockquote>
+<p>外观模式提供了一个统一的接口，用来访问子系统中的一群接口，外观定义了一个高层接口，让子系统更容易使用。</p>
+</blockquote>
+<p>外观模式不只是简化了接口，也将客户从组件的子系统中解耦。<br>适配器模式和外观模式的差异在于它们的意图，适配器模式的意图是改变接口符合客户的期望；而外观模式的意图是提供子系统的一个简化接口。<br><strong>最少知识原则</strong><br>在一个对象的方法内，我们只应该调用属于以下范围的方法：</p>
+<ol>
+<li>该对象本身</li>
+<li>被当做方法的参数而传递进来的对象</li>
+<li>此方法所创建或实例化的任何对象</li>
+<li>对象的任何组件<br>请注意，这些方针告诉我们，如果某对象是调用其他的方法的返回结果，不要调用该对象的方法。<br>如果我们这样做，相当于向另一个对象的子部分发请求，而增加我们直接认识的对象的数目。<br><img src="http://omt5ar039.bkt.clouddn.com/getTemp.png" alt=""><br>问：采用最少知识原则有什么缺点？<br>答：虽然这个原则减少了对象之间的依赖，研究显示这会减少软件的维护成本；但是采用这个原则也会导致更多的包装类被制造出来，以处理和其他组件的沟通，这可能会导致复杂度和开发时间的增加，并降低运行时的性能。</li>
+</ol>
+<h3 id="装饰者模式"><a href="#装饰者模式" class="headerlink" title="装饰者模式"></a>装饰者模式</h3><blockquote>
+<p>动态地将责任附加到对象上，若要扩展功能，装饰者提供了比继承更有弹性的替代方案。</p>
+</blockquote>
+<p>Java I/O就用到了装饰者模式，但是Java I/O也引出了装饰者模式的一个缺点：利用装饰者模式，常常造成设计中有大量的小类，数量实在太多，可能会造成使用此API程序员的困扰。<br>装饰者和被装饰者必须是一样的类型，也就是有共同的超类，这是相当关键的地方。在这里，我们利用继承达到“类型匹配”，而不是利用继承获得“行为”。那行为又从哪里来呢？当我们将装饰者与组件组合时，就是在加入新的行为。所得到的新行为，并不是继承自超类，而是由组合对象得来的。<br><img src="http://omt5ar039.bkt.clouddn.com/stream.png" alt=""></p>
+<h3 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h3><blockquote>
+<p>代理模式为另一个对象提供一个替身或占位符以控制对这个对象的访问。</p>
+</blockquote>
+<p><strong>远程代理</strong><br><a href="https://zhuzhu1.github.io/2017/05/30/RMI-Helloworld/" target="_blank" rel="external">RMI HELLOWORLD</a><br><strong>虚拟代理</strong><br>作为创建开销大的对象的代表。当对象在创建前和创建中时，由虚拟代理来扮演对象的替身，对象创建后，代理就会将请求直接委托给对象。例如loading…<br><strong>保护代理</strong></p>
+<p>装饰者为对象增加行为，而代理是控制对象的访问。代理和适配器都是挡在其他对象的前面，并负责将请求转发给它们。适配器会改变对象适配的接口，而代理则实现相同的接口。</p>
+<h3 id="桥接模式"><a href="#桥接模式" class="headerlink" title="桥接模式"></a>桥接模式</h3><p>不只改变你的实现，也改变你的抽象。<br>一个类存在两个独立变化的维度，且这两个维度都需要进行扩展。<br>参考<a href="http://www.runoob.com/design-pattern/bridge-pattern.html" target="_blank" rel="external">http://www.runoob.com/design-pattern/bridge-pattern.html</a></p>
+<h3 id="组合模式"><a href="#组合模式" class="headerlink" title="组合模式"></a>组合模式</h3><blockquote>
+<p>组合模式允许你将对象组合成树形结构来表现“整体/部分”层次结构，组合能让客户以一致的方式处理个别对象以及对象组合。</p>
+</blockquote>
+<p>使用组合结构，我们能把相同的操作应用在组合和个别对象上。换句话说，在大多数情况下，我们可以忽略对象组合和个别对象之间的差别。<br><img src="http://omt5ar039.bkt.clouddn.com/tree.png" alt=""></p>
+<h3 id="享元模式"><a href="#享元模式" class="headerlink" title="享元模式"></a>享元模式</h3><p>主要用于减少创建对象的数量，以减少内存占用和提高性能。享元模式尝试重用现有的同类对象，如果未找到匹配的对象，则创建新对象。</p>
+<p><strong>参考</strong><br>《Head First设计模式》<br><a href="http://www.runoob.com/design-pattern/design-pattern-intro.html" target="_blank" rel="external">设计模式——菜鸟教程</a></p>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2017-06-04</span><i class="fa fa-tag"></i><a class="tag" href="/categories/Java/" title="Java">Java </a><a class="tag" href="/tags/java/" title="java">java </a><a class="tag" href="/tags/design-pattern/" title="design pattern">design pattern </a></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" href="http://twitter.com/home?status=,http://zhuzhucs.com/2017/06/04/设计模式入门-结构型模式/,杏仁的博客,设计模式入门_结构型模式,;"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/2017/06/04/设计模式入门-行为型模式/" title="设计模式入门_行为型模式">上一篇</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/2017/05/30/RMI-Helloworld/" title="RMI Helloworld">下一篇</a></li></ul></div><a id="comments"></a><div id="vcomments" style="margin:0 30px;"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js?v=undefined"></script><script>var valine = new Valine({
+  el:'#vcomments',
+  notify:false || false, 
+  verify:false|| false, 
+  app_id:'kPrvoe1sT8i8q0ziB1KqWlCt-gzGzoHsz',
+  app_key:'a3xppHjKmC3F1hx16o0pqlfV',
+  placeholder:'Just go go',
+  path: window.location.pathname,
+  avatar:'mm'
+})</script></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>
